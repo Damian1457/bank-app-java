@@ -33,3 +33,5 @@ public class ApplicationCli {
         System.out.println("Assets after transfer in Damian account: " + damianAccount.balance());
     }
 }
+
+// TODO: 17.02.2023 Zamienić wszystkie Stringi pisane na sztywno na wartości pobierane ze scannera od użytkownika.  
