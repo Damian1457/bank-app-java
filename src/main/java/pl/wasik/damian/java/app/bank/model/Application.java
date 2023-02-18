@@ -31,13 +31,3 @@ public class Application {
     }
 }
 
-// TODO: 12.01.2023  Analogicznie do description.txt opisać i zaplanować aplikację umożliwiającą rekrutację kandydatów.
-//Stworzyć model dziedziny analogicznie do bank.model, który powstał z rzeczowników i czasowników z description.txt.
-
-//TODO: 19.01.2023 Zrobić aplikacje do fakturowania. Wszystko to co wcześniej.
-//Stworzyć model dziedziny analogicznie do bank.model, który powstał z rzeczowników i czasowników z description.txt.
-//Do czego służy static i final? Teoria i różnice. (Defioniowanie na różnych poziomach).
-// Testy jednostkowe do metod deposit(), withdraw() - Account Class.
-
-// TODO: 10.02.2023 przećwiczyć tworzenie nowych branchy + pullrequest
-// Dodawanie plików do gita, commit zmian, push zmian.

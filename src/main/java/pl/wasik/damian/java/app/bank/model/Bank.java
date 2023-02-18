@@ -26,4 +26,12 @@ public class Bank {
     public List<Client> allClients() {
         return clients;
     }
+
+    @Override
+    public String toString() {
+        return "Bank{" +
+                "name='" + name + '\'' +
+                ", address=" + address +
+                '}';
+    }
 }

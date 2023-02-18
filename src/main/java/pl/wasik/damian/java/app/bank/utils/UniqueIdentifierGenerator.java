@@ -6,5 +6,4 @@ public interface UniqueIdentifierGenerator {
     static String generateAccountNumber() {
         return UUID.randomUUID().toString();
     }
-    // TODO: 03.02.2023 Dopisać test jednostkowy dla metody powyżej.
 }
