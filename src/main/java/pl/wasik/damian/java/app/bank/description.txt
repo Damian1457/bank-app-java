@@ -1,0 +1,22 @@
+Aplikacja Bankowa umożliwia klientom, wpłate i wypłatę pieniędzy z/na konta, oraz transfer pieniędzy między kontami.
+Na starcie, aplikacja umożliwia zakładanie kont, oraz rejestrację klientów.
+
+rzeczowniki (przyszłe klasy Java) stworzyły nam model dziedziny.
+- aplikacja,
+- bank,
+- klient,
+- konto,
+- transfer.
+
+czesowniki (przyszłe metody w klasach)
+- wpłata,
+- wypłata,
+- przelew,
+- zakładanie konta,
+- rejestracje klienta.
+
+Trzy elementy składowe klasy.
+- pola, atrybuty, zmienne - przechowuje stan aplikacji w postaci danych.
+- konstruktory - pozwalają tworzyć obiekty według naszego wzoru.
+- metody - umożliwiają wykonanie działania na klasie/obiekcie, wchodzą w interakcję z klasą/obiektem.
+
