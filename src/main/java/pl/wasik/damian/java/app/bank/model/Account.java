@@ -2,7 +2,7 @@ package pl.wasik.damian.java.app.bank.model;
 
 public class Account {
     private String number;
-//    private double balance = 10.0;
+    //    private double balance = 10.0;
     private double balance;
 
     public Account(String number, double balance) {

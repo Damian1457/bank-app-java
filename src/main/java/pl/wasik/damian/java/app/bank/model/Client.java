@@ -32,4 +32,13 @@ public class Client {
     public List<Account> allAccounts() {
         return this.accounts;
     }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address=" + address +
+                '}';
+    }
 }
