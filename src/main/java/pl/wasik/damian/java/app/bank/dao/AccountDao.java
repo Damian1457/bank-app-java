@@ -15,6 +15,7 @@ public class AccountDao {
     // TODO: 17.02.2023 Za pomocą h2console stworzyć nową tabelę ANIMALS
     //Wypełnić tabelę ANIMALS danymi, dodać 2 rekordy
     //Stworzyć nową klasę AnimalDao i dodać implementacje metody list analogicznie jak w AccountDao
+    //https://docs.oracle.com/javase/tutorial/jdbc/basics/index.html
 
     // C - create
     public void create() {

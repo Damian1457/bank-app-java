@@ -8,8 +8,8 @@ public class Bank {
     //    private String street;
 //    private String houseNumber;
 //    private String postalCode;
-    private Address address; //
-    private List<Client> clients = new ArrayList<>(); // clients - zależność.
+    private Address address;
+    private List<Client> clients = new ArrayList<>();
 
     public Bank(String name, Address address) {
         this.name = name;
