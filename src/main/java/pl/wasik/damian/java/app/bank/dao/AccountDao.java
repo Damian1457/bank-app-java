@@ -49,6 +49,9 @@ public class AccountDao {
 
     // R - read
     public void read() {
+        //SELECT * FROM ACCOUNTS WHERE ID=9;
+        // TODO: 28.02.2023 Wzorując się na metodzie create() zaimplementować zapytanie SELECT * FROM ACCOUNTS WHERE ID=9;
+        // Metody publiczne logowanie wejścia i wyjścia, oraz poprawne logowanie wyjątków.
     }
 
     // U - update
