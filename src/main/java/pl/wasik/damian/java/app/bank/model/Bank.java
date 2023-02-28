@@ -42,3 +42,5 @@ public class Bank {
                 '}';
     }
 }
+
+// TODO: 28.02.2023 Dla wszystkich metod publicznych dostępnych w ramach aplikacji bankowej dodać loggery na wejściu i wyjściu.  
