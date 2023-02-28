@@ -1,11 +1,18 @@
 package pl.wasik.damian.java.app.bank.model;
 
 public class Account {
+    private int id;
     private String number;
     //    private double balance = 10.0;
     private double balance;
 
     public Account(String number, double balance) {
+        this.number = number;
+        this.balance = balance;
+    }
+
+    public Account(int id, String number, double balance) {
+        this.id = id;
         this.number = number;
         this.balance = balance;
     }
@@ -26,6 +33,10 @@ public class Account {
         return this.balance;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public double balance() {
         return this.balance;
     }
@@ -37,8 +48,21 @@ public class Account {
     @Override
     public String toString() {
         return "Account{" +
-//                "number='" + number + '\'' +
+                "number='" + number + '\'' +
                 ", balance=" + balance +
                 '}';
     }
+
+    /*
+    CREATE TABLE ACCOUNTS(
+    ID INT PRIMARY KEY,
+    ACC_NO VARCHAR(255),
+    BALANCE FLOAT
+    );
+
+--public class Account {
+--    private String number;
+--    private double balance;
+--}
+     */
 }

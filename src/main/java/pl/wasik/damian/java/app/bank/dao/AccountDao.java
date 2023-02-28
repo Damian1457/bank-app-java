@@ -1,12 +1,19 @@
 package pl.wasik.damian.java.app.bank.dao;
 
+import pl.wasik.damian.java.app.bank.model.Account;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AccountDao {
+    private static final Logger LOGGER = Logger.getLogger(AccountDao.class.getName());
+
     //Przepis na korzystanie z JDBC
     //1. DriverManager
     //2. Connection
@@ -18,8 +25,26 @@ public class AccountDao {
     //https://docs.oracle.com/javase/tutorial/jdbc/basics/index.html
 
     // C - create
-    public void create() {
+//    public void create(int id, String accountNumber, double balance) {
+    public void create(Account account) {
+        LOGGER.info("create(" + account + ")");
+        //INSERT INTO ACCOUNTS (ID, ACC_NO, BALANCE) VALUES(1, '12121212', 20.0);
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
+            LOGGER.info("" + connection);
+//            Statement statement = connection.createStatement();
+//            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO ACCOUNTS (ID, ACC_NO, BALANCE) VALUES(10, '101111111111', 50.0);");
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO ACCOUNTS (ID, ACC_NO, BALANCE) VALUES(?, ?, ?);");
+            preparedStatement.setInt(1, account.getId());
+            preparedStatement.setString(2, account.getNumber());
+            preparedStatement.setDouble(3, account.balance());
+            int executeUpdate = preparedStatement.executeUpdate();
+            LOGGER.info("create(...) = " + executeUpdate);
 
+        } catch (SQLException e) {
+//            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Database error", e);
+        }
     }
 
     // R - read
@@ -40,10 +65,10 @@ public class AccountDao {
             Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
             System.out.println(connection);
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM TEST ORDER BY ID;");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM ACCOUNTS ORDER BY ID;");
             System.out.println(resultSet);
             while (resultSet.next()) {
-                String name = resultSet.getString("name");
+                String name = resultSet.getString("ACC_NO");
                 System.out.println(name);
             }
         } catch (SQLException e) {
