@@ -74,5 +74,6 @@ public class ApplicationCli {
         System.out.println("Transfer status: " + damianAleksanderTransferStatus);
         System.out.println("Assets after transfer in Damian account: " + damianAccount.balance());
     }
+    //app
 }
 
