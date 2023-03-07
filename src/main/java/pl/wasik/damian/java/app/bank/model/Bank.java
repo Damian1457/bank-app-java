@@ -30,7 +30,7 @@ public class Bank {
         return client;
     }
 
-    public List<Client> allClients() {
+    public List<Client> allClients() { //Zrobić loggera
         return clients;
     }
 

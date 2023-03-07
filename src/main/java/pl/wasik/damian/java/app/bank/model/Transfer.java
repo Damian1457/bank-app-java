@@ -9,7 +9,7 @@ public class Transfer {
 ////       accountTo.deposit(amount);
 //    }
 
-    public static TransferStatus transfer(Account accountFrom, Account accountTo, double amount) {
+    public static TransferStatus transfer(Account accountFrom, Account accountTo, double amount) { //Zrobić loggera
         double accountFromBalance = accountFrom.balance();
         if (accountFromBalance < amount) {
             return TransferStatus.FAILURE;

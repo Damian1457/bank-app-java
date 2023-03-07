@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,16 +21,15 @@ public class AccountDao {
     //2. Connection
     //3. Statement/PrepareStatement
     //4. ResultSet
-    // TODO: 17.02.2023 Za pomocą h2console stworzyć nową tabelę ANIMALS
-    //Wypełnić tabelę ANIMALS danymi, dodać 2 rekordy
-    //Stworzyć nową klasę AnimalDao i dodać implementacje metody list analogicznie jak w AccountDao
     //https://docs.oracle.com/javase/tutorial/jdbc/basics/index.html
 
     // C - create
 //    public void create(int id, String accountNumber, double balance) {
     public void create(Account account) {
+
         LOGGER.info("create(" + account + ")");
         //INSERT INTO ACCOUNTS (ID, ACC_NO, BALANCE) VALUES(1, '12121212', 20.0);
+
         try {
             Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
             LOGGER.info("" + connection);
@@ -38,6 +39,7 @@ public class AccountDao {
             preparedStatement.setInt(1, account.getId());
             preparedStatement.setString(2, account.getNumber());
             preparedStatement.setDouble(3, account.balance());
+
             int executeUpdate = preparedStatement.executeUpdate();
             LOGGER.info("create(...) = " + executeUpdate);
 
@@ -48,34 +50,100 @@ public class AccountDao {
     }
 
     // R - read
-    public void read() {
+    public void read(int id) {
+
         //SELECT * FROM ACCOUNTS WHERE ID=9;
         // TODO: 28.02.2023 Wzorując się na metodzie create() zaimplementować zapytanie SELECT * FROM ACCOUNTS WHERE ID=9;
         // Metody publiczne logowanie wejścia i wyjścia, oraz poprawne logowanie wyjątków.
+
+        LOGGER.info("read(" + id + ")");
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
+            LOGGER.info("" + connection);
+
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM ACCOUNTS WHERE ID=?");
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                int accountId = resultSet.getInt("ID");
+                String accountNumber = resultSet.getString("ACC_NO");
+                double accountBalance = resultSet.getDouble("BALANCE");
+                Account account = new Account(accountId, accountNumber, accountBalance);
+                LOGGER.info("read(...) = " + account);
+            }
+
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Database error", e);
+        }
     }
 
     // U - update
-    public void update() {
+    public void update(Account account) {
+
+        LOGGER.info("update(" + account + ")");
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
+            LOGGER.info("" + connection);
+
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE ACCOUNTS SET ACC_NO=?, BALANCE=? WHERE ID=?");
+            preparedStatement.setString(1, account.getNumber());
+            preparedStatement.setDouble(2, account.balance());
+            preparedStatement.setInt(3, account.getId());
+
+            int executeUpdate = preparedStatement.executeUpdate();
+            LOGGER.info("update(...) = " + executeUpdate);
+
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Database error", e);
+        }
     }
 
     // D - delete
-    public void delete() {
+    public void delete(int id) {
+
+        LOGGER.info("delete(" + id + ")");
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
+            LOGGER.info("" + connection);
+
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM ACCOUNTS WHERE ID=?");
+            preparedStatement.setInt(1, id);
+
+            int executeDelete = preparedStatement.executeUpdate();
+            LOGGER.info("delete(...) = " + executeDelete);
+
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Database error", e);
+        }
     }
 
     // L - list
-    public void list() {
+    public List<Account> list() {
+        List<Account> accounts = new ArrayList<>();
+
         try {
             Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
-            System.out.println(connection);
+            LOGGER.info("" + connection);
+
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM ACCOUNTS ORDER BY ID;");
-            System.out.println(resultSet);
+            LOGGER.info("" + resultSet);
+
             while (resultSet.next()) {
-                String name = resultSet.getString("ACC_NO");
-                System.out.println(name);
+                int id = resultSet.getInt("ID");
+                String number = resultSet.getString("ACC_NO");
+                double balance = resultSet.getDouble("BALANCE");
+                Account account = new Account(id, number, balance);
+                accounts.add(account);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Database error", e);
         }
+        System.out.println(accounts);
+        return accounts;
     }
 }
