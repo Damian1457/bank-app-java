@@ -30,7 +30,6 @@ class AccountTest {
 
         //Then
         Assertions.assertEquals(ACCOUNT_BALANCE_0, balance, "balance not equals: " + ACCOUNT_BALANCE_0);
-
     }
 
     @Test
@@ -43,6 +42,5 @@ class AccountTest {
 
         //Then
         Assertions.assertEquals(ACCOUNT_BALANCE_100, deposit, "balance not equals: " + ACCOUNT_BALANCE_100);
-
     }
 }

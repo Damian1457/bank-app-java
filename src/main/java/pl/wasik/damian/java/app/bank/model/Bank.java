@@ -31,6 +31,8 @@ public class Bank {
     }
 
     public List<Client> allClients() {
+        LOGGER.info("allClients()");
+        LOGGER.info("AllClients(...) = " + clients);
         return clients;
     }
 

@@ -1,6 +1,9 @@
 package pl.wasik.damian.java.app.bank.model;
 
+import java.util.logging.Logger;
+
 public class Account {
+    private static final Logger LOGGER = Logger.getLogger(Account.class.getName());
     private int id;
     private String number;
     //    private double balance = 10.0;
@@ -19,17 +22,23 @@ public class Account {
 
     public double withdraw(double amount) {
         //this.balance = this.balance - amount;
+        LOGGER.info("withdraw(" + amount + ")");
         if (amount <= this.balance) {
             this.balance -= amount;
         }
 //        else {
 //            System.out.println(TransferStatus.FAILURE + " because you don't have money!");
 //        }
+        LOGGER.info("balance() = " + this.balance);
+        
         return this.balance;
     }
 
     public double deposit(double amount) {
+        LOGGER.info("deposit(" + amount + ")");
         balance += amount;
+        LOGGER.info("balance() = " + this.balance);
+
         return this.balance;
     }
 
