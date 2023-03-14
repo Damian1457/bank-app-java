@@ -16,6 +16,19 @@ import java.util.logging.Logger;
 public class AccountDao {
     private static final Logger LOGGER = Logger.getLogger(AccountDao.class.getName());
 
+    public void clearDatabaseRecords() {
+        LOGGER.info("clearDatabaseRecords()");
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
+            Statement statement = connection.createStatement();
+            boolean execute = statement.execute("DELETE FROM ACCOUNTS;");
+            LOGGER.info("execute: " + execute);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        LOGGER.info("clearDatabaseRecords(...)");
+    }
+
     //Przepis na korzystanie z JDBC
     //1. DriverManager
     //2. Connection

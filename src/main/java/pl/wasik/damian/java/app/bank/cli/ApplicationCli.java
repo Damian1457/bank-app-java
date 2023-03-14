@@ -9,6 +9,7 @@ import pl.wasik.damian.java.app.bank.model.TransferStatus;
 
 import java.util.Scanner;
 
+
 public class ApplicationCli {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
