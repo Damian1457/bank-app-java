@@ -33,7 +33,9 @@ public class Client {
         return account;
     }
 
-    public List<Account> allAccounts() { // Zrobić loggera
+    public List<Account> allAccounts() {
+        LOGGER.info("allAccounts()");
+        LOGGER.info("allAccounts(...) = " + this.accounts);
         return this.accounts;
     }
 

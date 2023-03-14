@@ -25,7 +25,7 @@ public class AccountDao {
 
     // C - create
 //    public void create(int id, String accountNumber, double balance) {
-    public void create(Account account) {
+    public Account create(Account account) {
 
         LOGGER.info("create(" + account + ")");
         //INSERT INTO ACCOUNTS (ID, ACC_NO, BALANCE) VALUES(1, '12121212', 20.0);
@@ -47,14 +47,11 @@ public class AccountDao {
 //            e.printStackTrace();
             LOGGER.log(Level.SEVERE, "Database error", e);
         }
+        return account;
     }
 
     // R - read
-    public void read(int id) {
-
-        //SELECT * FROM ACCOUNTS WHERE ID=9;
-        // TODO: 28.02.2023 Wzorując się na metodzie create() zaimplementować zapytanie SELECT * FROM ACCOUNTS WHERE ID=9;
-        // Metody publiczne logowanie wejścia i wyjścia, oraz poprawne logowanie wyjątków.
+    public Account read(int id) {
 
         LOGGER.info("read(" + id + ")");
 
@@ -72,15 +69,17 @@ public class AccountDao {
                 double accountBalance = resultSet.getDouble("BALANCE");
                 Account account = new Account(accountId, accountNumber, accountBalance);
                 LOGGER.info("read(...) = " + account);
+                return account;
             }
 
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Database error", e);
         }
+        return null;
     }
 
     // U - update
-    public void update(Account account) {
+    public Account update(Account account) {
 
         LOGGER.info("update(" + account + ")");
 
@@ -99,6 +98,7 @@ public class AccountDao {
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Database error", e);
         }
+        return account;
     }
 
     // D - delete
@@ -143,7 +143,6 @@ public class AccountDao {
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Database error", e);
         }
-        System.out.println(accounts);
         return accounts;
     }
 }

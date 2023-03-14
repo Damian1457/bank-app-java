@@ -30,7 +30,9 @@ public class Bank {
         return client;
     }
 
-    public List<Client> allClients() { //Zrobić loggera
+    public List<Client> allClients() {
+        LOGGER.info("allClients()");
+        LOGGER.info("AllClients(...) = " + clients);
         return clients;
     }
 

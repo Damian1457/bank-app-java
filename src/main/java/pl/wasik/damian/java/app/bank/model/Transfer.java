@@ -1,6 +1,10 @@
 package pl.wasik.damian.java.app.bank.model;
 
+import java.util.logging.Logger;
+
 public class Transfer {
+
+    private static final Logger LOGGER = Logger.getLogger(Transfer.class.getName());
 //    private Account accountFrom;
 //    private Account accountTo;
 
@@ -9,14 +13,19 @@ public class Transfer {
 ////       accountTo.deposit(amount);
 //    }
 
-    public static TransferStatus transfer(Account accountFrom, Account accountTo, double amount) { //Zrobić loggera
+    public static TransferStatus transfer(Account accountFrom, Account accountTo, double amount) {
+
+        LOGGER.info("transfer(" + accountFrom + ", " + accountTo + ", " + amount + ")");
+
         double accountFromBalance = accountFrom.balance();
         if (accountFromBalance < amount) {
+            LOGGER.info("transfer(...) = " + TransferStatus.FAILURE);
             return TransferStatus.FAILURE;
 //            return BankApplicationConstants.TRANSFER_STATUS_FAILURE;
         } else {
             accountFrom.withdraw(amount);
             accountTo.deposit(amount);
+            LOGGER.info("transfer(...) = " + TransferStatus.OK);
             return TransferStatus.OK;
 //            return BankApplicationConstants.TRANSFER_STATUS_OK;
         }
