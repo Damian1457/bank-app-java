@@ -30,7 +30,7 @@ public class Account {
 //            System.out.println(TransferStatus.FAILURE + " because you don't have money!");
 //        }
         LOGGER.info("balance() = " + this.balance);
-        
+
         return this.balance;
     }
 
@@ -61,8 +61,7 @@ public class Account {
                 ", balance=" + balance +
                 '}';
     }
-
-    /*
+/*
     CREATE TABLE ACCOUNTS(
     ID INT PRIMARY KEY,
     ACC_NO VARCHAR(255),

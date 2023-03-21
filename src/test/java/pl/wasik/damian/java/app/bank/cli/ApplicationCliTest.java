@@ -9,6 +9,9 @@ import pl.wasik.damian.java.app.bank.model.Client;
 import pl.wasik.damian.java.app.bank.model.Transfer;
 import pl.wasik.damian.java.app.bank.model.TransferStatus;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 class ApplicationCliTest {
 
     private static final double ACTUAL_BALANCE = 50.00;
@@ -16,7 +19,6 @@ class ApplicationCliTest {
 
     @Test
     void testApplication() {
-
         //Given
         ApplicationCli applicationCli = new ApplicationCli();
         Address smallBankAddress = new Address("street", "houseNumber", "postalCode");
@@ -42,5 +44,16 @@ class ApplicationCliTest {
                 () -> Assertions.assertEquals(TRANSFER_STATUS_OK, damianAleksanderTransferStatus, " transfer status not equals OK")
         );
     }
+
+    @Test
+    void testInputs() {
+        String input = "add 16";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        Assertions.assertEquals("add 16", ApplicationCli.getInput());
+    }
+
+
 
 }
