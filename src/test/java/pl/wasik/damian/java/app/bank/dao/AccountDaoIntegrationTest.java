@@ -1,6 +1,5 @@
 package pl.wasik.damian.java.app.bank.dao;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -135,3 +134,5 @@ class AccountDaoIntegrationTest {
 }
 // TODO: 07.03.2023 Zamienić testy jednostkowe na integracyjne - dwie metody.
 //  Zapewnić za pomocą dao metody do weryfinacji innych metod: read() musi zrobić najpierw create().
+
+// TODO: 21.03.2023 Poprawić metodę create w AccountDao i testy jednostkowe.
