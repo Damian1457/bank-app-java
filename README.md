@@ -103,9 +103,7 @@ Follow these steps to install and run the application:
 
 1. Clone this repository to your computer.
 2. Open a terminal and navigate to the directory containing the `pom.xml` file.
-3. Run the command `mvn clean install` to compile the code and build the JAR file.
-4. Start the H2 Database Engine.
-5. Run the application by executing the command `java -jar target/account-1.0-SNAPSHOT.jar`.
+3. Start the H2 Database Engine.
 
 ## Configuration
 
@@ -117,7 +115,8 @@ The default database connection settings are:
 
 You can change these settings by editing the file `src/main/resources/application.properties`.
 
-## Usage // docelowo będzie web
+## Usage
+### Ultimately, there will be a Web page view.
 
 The application uses JDBC to connect to an H2 database. To use this application, you must have the H2 database and JDBC driver installed.
 o use this application, call the methods of the `AccountDao` class. Here is an example code:
