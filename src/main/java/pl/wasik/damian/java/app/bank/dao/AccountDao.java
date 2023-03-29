@@ -42,25 +42,18 @@ public class AccountDao {
     public Account create(Account account) {
 
         LOGGER.info("create(" + account + ")");
-        //INSERT INTO ACCOUNTS (ID, ACC_NO, BALANCE) VALUES(1, '12121212', 20.0);
 
-//        int accountId = UniqueIdGenerator.generateId();
-//        account = new Account(accountId, account.getNumber(), account.balance());
-
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
+        try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa")) {
             LOGGER.info("" + connection);
-//            Statement statement = connection.createStatement();
-//            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO ACCOUNTS (ID, ACC_NO, BALANCE) VALUES(10, '101111111111', 50.0);");
+
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO ACCOUNTS (ID, ACC_NO, BALANCE) VALUES(?, ?, ?);");
-            preparedStatement.setInt(1, UniqueIdGenerator.generateId());
+            preparedStatement.setInt(1, UniqueIdGenerator.getNextId(connection));
             preparedStatement.setString(2, account.getNumber());
             preparedStatement.setDouble(3, account.balance());
             int executeUpdate = preparedStatement.executeUpdate();
             LOGGER.info("create(...) = " + executeUpdate);
 
         } catch (SQLException e) {
-//            e.printStackTrace();
             LOGGER.log(Level.SEVERE, "Database error", e);
         }
         return account;
@@ -91,6 +84,7 @@ public class AccountDao {
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Database error", e);
         }
+        LOGGER.log(Level.SEVERE, "There is no account with the given id number " + id);
         return null;
     }
 
