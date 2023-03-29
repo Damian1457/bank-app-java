@@ -20,6 +20,11 @@ public class Account {
         this.balance = balance;
     }
 
+    /**
+     * This method withdraws the given amount from the account balance.
+     * @param amount the amount to withdraw
+     * @return account balance after withdraw
+     */
     public double withdraw(double amount) {
         //this.balance = this.balance - amount;
         LOGGER.info("withdraw(" + amount + ")");
@@ -30,10 +35,15 @@ public class Account {
 //            System.out.println(TransferStatus.FAILURE + " because you don't have money!");
 //        }
         LOGGER.info("balance() = " + this.balance);
-        
+
         return this.balance;
     }
 
+    /**
+     * This method deposit the given amount to the account balance.
+     * @param amount the amount to deposit
+     * @return account balance after deposit
+     */
     public double deposit(double amount) {
         LOGGER.info("deposit(" + amount + ")");
         balance += amount;
@@ -57,12 +67,12 @@ public class Account {
     @Override
     public String toString() {
         return "Account{" +
-                "number='" + number + '\'' +
+                "id=" + id +
+                ", number='" + number + '\'' +
                 ", balance=" + balance +
                 '}';
     }
-
-    /*
+/*
     CREATE TABLE ACCOUNTS(
     ID INT PRIMARY KEY,
     ACC_NO VARCHAR(255),

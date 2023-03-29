@@ -4,111 +4,121 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pl.wasik.damian.java.app.bank.model.Account;
+import pl.wasik.damian.java.app.bank.utils.UniqueIdGenerator;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.List;
 
 class AccountDaoIntegrationTest {
 
-    private static final String ACCOUNT_NUMBER = "1456-4350-5620-3598";
-    private static final double ACCOUNT_BALANCE = 100.00;
-    private static final int ACCOUNT_ID_1 = 3;
-    private static final int ACCOUNT_LIST_SIZE_1 = 1;
+    private static final String DB_URL = "jdbc:h2:~/test";
+    private static final String DB_USER = "sa";
+    private static final String DB_PASSWORD = "sa";
+
+    private static final double ACCOUNT_BALANCE_100 = 100.00;
+    private static final double ACCOUNT_BALANCE_300 = 300.00;
+    private static final int ACCOUNTS_SIZE_1 = 1;
+    private static final int ACCOUNT_ID_1 = 1;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws SQLException {
         AccountDao accountDao = new AccountDao();
         accountDao.clearDatabaseRecords();
+
+        Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        UniqueIdGenerator uniqueIdGenerator = new UniqueIdGenerator();
+        uniqueIdGenerator.clearAccountTable(connection);
+    }
+
+//    @AfterEach
+//    void clearUp() {
+//        AccountDao accountDao = new AccountDao();
+//        accountDao.clearDatabaseRecords();
+//    }
+
+    @Test
+    void givenCreateNewAccount_whenCreateAccountInDatabases_thenSearchAccountId1() {
+        //Given
+        AccountDao accountDao = new AccountDao();
+        Account damianAccount = new Account("1355-2000-1789-8978", ACCOUNT_BALANCE_100);
+
+        //When
+        accountDao.create(damianAccount);
+        Account searchDamianAccount = accountDao.read(ACCOUNT_ID_1);
+
+        //Then
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(ACCOUNT_BALANCE_100, searchDamianAccount.balance(), " the account balance isn't equals " + ACCOUNT_BALANCE_100),
+                () -> Assertions.assertNotNull(searchDamianAccount, " Damian account does not exist ")
+        );
     }
 
     @Test
-    void list() {
+    void givenCreateNewAccount_whenReadAccountId1_thenCheckTheAccountNumber() {
         //Given
         AccountDao accountDao = new AccountDao();
-        Account account = new Account(ACCOUNT_ID_1, ACCOUNT_NUMBER, ACCOUNT_BALANCE);
+        Account damianAccount = new Account("1355-2000-1789-8978", ACCOUNT_BALANCE_100);
 
         //When
-        accountDao.create(account);
+        accountDao.create(damianAccount);
+        Account searchDamianAccount = accountDao.read(1);
+
+        //Then
+        Assertions.assertEquals("1355-2000-1789-8978", searchDamianAccount.getNumber(), " account numbers are not the same");
+    }
+
+    @Test
+    void givenCreateNewAccount_whenUpdateAccount_thenCheckEqualsBalancesOfAccounts() {
+        //Given
+        AccountDao accountDao = new AccountDao();
+        Account damianAccount = new Account("1355-2000-1789-8978", ACCOUNT_BALANCE_100);
+        Account updateDamianAccount = new Account(ACCOUNT_ID_1, "1234-1428-8967-5698", ACCOUNT_BALANCE_300);
+
+        //When
+        accountDao.create(damianAccount);
+        accountDao.update(updateDamianAccount);
+        Account searchDamianAccount = accountDao.read(ACCOUNT_ID_1);
+
+        //Then
+        Assertions.assertNotEquals(searchDamianAccount.balance(), damianAccount.balance(), " balances are equal");
+    }
+
+    @Test
+    void givenCreateNewAccount_whenDeleteAccountById_thenCheckingToSeeIfTheAccountHasBeenDeleted() {
+        //Given
+        AccountDao accountDao = new AccountDao();
+        Account damianAccount = new Account("1355-2000-1789-8978", ACCOUNT_BALANCE_100);
+
+        //When
+        accountDao.create(damianAccount);
+        accountDao.delete(1);
+        Account searchDamianAccount = accountDao.read(1);
+
+        //Then
+        Assertions.assertNull(searchDamianAccount, " damianAccount still exists");
+    }
+
+    @Test
+    void givenCreateNewAccount_whenAddingTheNewAccountToTheList_theCheckingTheListSizeEquals1() {
+        //Given
+        AccountDao accountDao = new AccountDao();
+        Account damianAccount = new Account("1355-2000-1789-8978", ACCOUNT_BALANCE_100);
+
+        //When
+        accountDao.create(damianAccount);
         List<Account> accounts = accountDao.list();
-
-        Account readAccount = accountDao.read(ACCOUNT_ID_1);
-        String accountNumber = readAccount.getNumber();
+        int listSize = accounts.size();
 
         //Then
         Assertions.assertAll(
-                () -> Assertions.assertEquals(ACCOUNT_LIST_SIZE_1, accounts.size(), " accounts SIZE is not equals " + ACCOUNT_LIST_SIZE_1),
-                () -> Assertions.assertEquals(accountNumber, ACCOUNT_NUMBER, " accountNumber isn't equals " + ACCOUNT_NUMBER)
+                () -> Assertions.assertNotNull(accounts, " accounts is null"),
+                () -> Assertions.assertEquals(ACCOUNTS_SIZE_1, listSize, " account size isn't equals" + ACCOUNTS_SIZE_1)
         );
-    }
-
-    @Test
-    void create() {
-        //Given
-        AccountDao accountDao = new AccountDao();
-        Account account = new Account(ACCOUNT_ID_1, ACCOUNT_NUMBER, ACCOUNT_BALANCE);
-
-        //When
-        accountDao.create(account);
-        Account readAccount = accountDao.read(ACCOUNT_ID_1);
-
-        //Then
-        Assertions.assertAll(
-
-                () -> Assertions.assertEquals(readAccount.balance(), ACCOUNT_BALANCE, " readAccount.balance() isn't equals " + ACCOUNT_BALANCE)
-        );
-    }
-
-    @Test
-    void read() {
-        //Given
-        AccountDao accountDao = new AccountDao();
-        Account account = new Account(ACCOUNT_ID_1, ACCOUNT_NUMBER, ACCOUNT_BALANCE);
-
-        //When
-        accountDao.create(account);
-        Account readAccount = accountDao.read(ACCOUNT_ID_1);
-
-        //Then
-        Assertions.assertAll(
-                () -> Assertions.assertNotNull(readAccount, " readAccount is null"),
-                () -> Assertions.assertEquals(readAccount.balance(), ACCOUNT_BALANCE, " readAccount.balance() isn't equals " + ACCOUNT_BALANCE + "")
-        );
-
-    }
-
-    @Test
-    void update() {
-        //Given
-        AccountDao accountDao = new AccountDao();
-        Account account = new Account(ACCOUNT_ID_1, ACCOUNT_NUMBER, ACCOUNT_BALANCE);
-        Account updateAccount = new Account(ACCOUNT_ID_1, "1234-4789-9090-8745", 300.00);
-
-        //When
-        accountDao.create(account);
-        Account update = accountDao.update(updateAccount);
-        Account readAccount = accountDao.read(ACCOUNT_ID_1);
-
-        //Then
-        Assertions.assertAll(
-                () -> Assertions.assertEquals(update.getId(), readAccount.getId(), " update.getId() isn't equals "),
-                () -> Assertions.assertEquals(update.getNumber(), readAccount.getNumber(), " update.getNumber isn't equals "),
-                () -> Assertions.assertEquals(update.balance(), readAccount.balance(), " update.balance() isn't equals ")
-        );
-    }
-
-    @Test
-    void delete() {
-        //Given
-        AccountDao accountDao = new AccountDao();
-        Account account = new Account(ACCOUNT_ID_1, ACCOUNT_NUMBER, ACCOUNT_BALANCE);
-
-        //When
-        accountDao.create(account);
-        accountDao.delete(ACCOUNT_ID_1);
-        Account deletedAccount = accountDao.read(ACCOUNT_ID_1);
-
-        //Then
-        Assertions.assertNull(deletedAccount, " deletedAccount isn't null");
     }
 }
 // TODO: 07.03.2023 Zamienić testy jednostkowe na integracyjne - dwie metody.
 //  Zapewnić za pomocą dao metody do weryfinacji innych metod: read() musi zrobić najpierw create().
+
+// TODO: 21.03.2023 Poprawić metodę create w AccountDao i testy jednostkowe.

@@ -1,6 +1,7 @@
 package pl.wasik.damian.java.app.bank.dao;
 
 import pl.wasik.damian.java.app.bank.model.Account;
+import pl.wasik.damian.java.app.bank.utils.UniqueIdGenerator;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -41,23 +42,18 @@ public class AccountDao {
     public Account create(Account account) {
 
         LOGGER.info("create(" + account + ")");
-        //INSERT INTO ACCOUNTS (ID, ACC_NO, BALANCE) VALUES(1, '12121212', 20.0);
 
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
+        try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa")) {
             LOGGER.info("" + connection);
-//            Statement statement = connection.createStatement();
-//            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO ACCOUNTS (ID, ACC_NO, BALANCE) VALUES(10, '101111111111', 50.0);");
+
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO ACCOUNTS (ID, ACC_NO, BALANCE) VALUES(?, ?, ?);");
-            preparedStatement.setInt(1, account.getId());
+            preparedStatement.setInt(1, UniqueIdGenerator.getNextId(connection));
             preparedStatement.setString(2, account.getNumber());
             preparedStatement.setDouble(3, account.balance());
-
             int executeUpdate = preparedStatement.executeUpdate();
             LOGGER.info("create(...) = " + executeUpdate);
 
         } catch (SQLException e) {
-//            e.printStackTrace();
             LOGGER.log(Level.SEVERE, "Database error", e);
         }
         return account;
@@ -88,19 +84,17 @@ public class AccountDao {
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Database error", e);
         }
+        LOGGER.log(Level.SEVERE, "There is no account with the given id number " + id);
         return null;
     }
 
     // U - update
     public Account update(Account account) {
-
         LOGGER.info("update(" + account + ")");
 
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
-            LOGGER.info("" + connection);
+        try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE ACCOUNTS SET ACC_NO=?, BALANCE=? WHERE ID=?")) {
 
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE ACCOUNTS SET ACC_NO=?, BALANCE=? WHERE ID=?");
             preparedStatement.setString(1, account.getNumber());
             preparedStatement.setDouble(2, account.balance());
             preparedStatement.setInt(3, account.getId());
@@ -111,6 +105,7 @@ public class AccountDao {
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Database error", e);
         }
+
         return account;
     }
 
