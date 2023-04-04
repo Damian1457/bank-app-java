@@ -1,5 +1,6 @@
 package pl.wasik.damian.java.app.bank.model;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -38,10 +39,7 @@ public class Bank {
 
     @Override
     public String toString() {
-        return "Bank{" +
-                "name='" + name + '\'' +
-                ", address=" + address +
-                '}';
+        return "Bank{" + "name='" + name + '\'' + ", address=" + address + '}';
     }
 }
 

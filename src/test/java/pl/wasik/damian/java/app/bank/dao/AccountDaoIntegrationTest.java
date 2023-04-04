@@ -3,6 +3,7 @@ package pl.wasik.damian.java.app.bank.dao;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pl.wasik.damian.java.app.bank.exception.CreateAccountException;
 import pl.wasik.damian.java.app.bank.model.Account;
 import pl.wasik.damian.java.app.bank.utils.UniqueIdGenerator;
 
@@ -39,7 +40,7 @@ class AccountDaoIntegrationTest {
 //    }
 
     @Test
-    void givenCreateNewAccount_whenCreateAccountInDatabases_thenSearchAccountId1() {
+    void givenCreateNewAccount_whenCreateAccountInDatabases_thenSearchAccountId1() throws CreateAccountException {
         //Given
         AccountDao accountDao = new AccountDao();
         Account damianAccount = new Account("1355-2000-1789-8978", ACCOUNT_BALANCE_100);
@@ -56,7 +57,7 @@ class AccountDaoIntegrationTest {
     }
 
     @Test
-    void givenCreateNewAccount_whenReadAccountId1_thenCheckTheAccountNumber() {
+    void givenCreateNewAccount_whenReadAccountId1_thenCheckTheAccountNumber() throws CreateAccountException {
         //Given
         AccountDao accountDao = new AccountDao();
         Account damianAccount = new Account("1355-2000-1789-8978", ACCOUNT_BALANCE_100);
@@ -70,7 +71,7 @@ class AccountDaoIntegrationTest {
     }
 
     @Test
-    void givenCreateNewAccount_whenUpdateAccount_thenCheckEqualsBalancesOfAccounts() {
+    void givenCreateNewAccount_whenUpdateAccount_thenCheckEqualsBalancesOfAccounts() throws CreateAccountException {
         //Given
         AccountDao accountDao = new AccountDao();
         Account damianAccount = new Account("1355-2000-1789-8978", ACCOUNT_BALANCE_100);
@@ -86,7 +87,7 @@ class AccountDaoIntegrationTest {
     }
 
     @Test
-    void givenCreateNewAccount_whenDeleteAccountById_thenCheckingToSeeIfTheAccountHasBeenDeleted() {
+    void givenCreateNewAccount_whenDeleteAccountById_thenCheckingToSeeIfTheAccountHasBeenDeleted() throws CreateAccountException {
         //Given
         AccountDao accountDao = new AccountDao();
         Account damianAccount = new Account("1355-2000-1789-8978", ACCOUNT_BALANCE_100);
@@ -101,7 +102,7 @@ class AccountDaoIntegrationTest {
     }
 
     @Test
-    void givenCreateNewAccount_whenAddingTheNewAccountToTheList_theCheckingTheListSizeEquals1() {
+    void givenCreateNewAccount_whenAddingTheNewAccountToTheList_theCheckingTheListSizeEquals1() throws CreateAccountException {
         //Given
         AccountDao accountDao = new AccountDao();
         Account damianAccount = new Account("1355-2000-1789-8978", ACCOUNT_BALANCE_100);

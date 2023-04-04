@@ -1,5 +1,6 @@
 package pl.wasik.damian.java.app.bank.dao;
 
+import pl.wasik.damian.java.app.bank.exception.CreateAccountException;
 import pl.wasik.damian.java.app.bank.model.Account;
 import pl.wasik.damian.java.app.bank.utils.UniqueIdGenerator;
 
@@ -39,7 +40,7 @@ public class AccountDao {
 
     // C - create
 //    public void create(int id, String accountNumber, double balance) {
-    public Account create(Account account) {
+    public Account create(Account account) throws CreateAccountException {
 
         LOGGER.info("create(" + account + ")");
 
@@ -55,6 +56,7 @@ public class AccountDao {
 
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Database error", e);
+            throw new CreateAccountException("Enable to create account", e);
         }
         return account;
     }
