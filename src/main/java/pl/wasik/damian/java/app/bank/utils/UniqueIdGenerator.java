@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 public class UniqueIdGenerator {
 
-    private static final String ID_SEQUENCE = "ACCOUNTS_SEQqqq";
+    private static final String ID_SEQUENCE = "ACCOUNTS_SEQ";
     private static final Logger LOGGER = Logger.getLogger(UniqueIdGenerator.class.getName());
 
     public static Integer getNextId(Connection connection) throws SQLException {
