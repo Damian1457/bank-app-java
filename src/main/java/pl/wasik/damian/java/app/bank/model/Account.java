@@ -20,11 +20,6 @@ public class Account {
         this.balance = balance;
     }
 
-    /**
-     * This method withdraws the given amount from the account balance.
-     * @param amount the amount to withdraw
-     * @return account balance after withdraw
-     */
     public double withdraw(double amount) {
         //this.balance = this.balance - amount;
         LOGGER.info("withdraw(" + amount + ")");

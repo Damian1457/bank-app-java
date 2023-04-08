@@ -3,9 +3,11 @@
 The project aims to create a simulation of a part of a banking application in Java. The main
 goal of the project is to carry out the software development process, which consists of
 analysis, design, implementation, testing and deployment.
+
 The application allows users to create a bank, set up user accounts, deposit and withdraw
 money, transfer funds from account to account, and read a list of current bank customers.
 Each user is given a unique ID and bank account number, and all data is stored in a database.
+
 The application's code is tested using JUnit, and it uses Maven and Git for project
 management. It also uses an H2 or PostgreSQL database.
 The project is under constant development, with plans to add new functionality in the future.
@@ -14,17 +16,8 @@ The project is under constant development, with plans to add new functionality i
 
 ## Navigation
 **1. [AccountDao Class](#accountdao-class)**
-> - [clearDatabaseRecords() method](#cleardatabaserecords--) 
-> - [create(Account account) method](#create--account-account-) 
-> - [read(int id) method ](#read--int-id-) 
-> - [update(Account account) method](#update--account-account-) 
-> - [delete(int id) method](#delete--int-id-)
-> - [list() method ](#list--) 
 
 **2. [Account Class](#account-class)**<br/>
-> - [Account(String number, double balance) constructor](#account--string-number-double-balance-) 
-> - [Account(int id, String number, double balance) constructor](#account--int-id-string-number-double-balance-) 
-> - [withdraw(double amount) method](#withdraw--double-amount-)
 
 **3. [Installation](#installation)**<br/>
 **4. [Configuration](#configuration)**<br/>
@@ -34,62 +27,10 @@ The project is under constant development, with plans to add new functionality i
 
 This class contains methods for managing bank accounts in the database.
 
-### clearDatabaseRecords()
-
-This method clears all records from the ACCOUNTS table in the database.
-
-### create(Account account)
-
-This method creates a new account in the database by inserting a new record into the ACCOUNTS table.
-
-- `account`: an instance of the Account class to be added to the database.
-
-### read(int id)
-
-This method reads an account record from the ACCOUNTS table in the database.
-
-- `id`: the id of the account to be read.
-
-### update(Account account)
-
-This method updates an existing account record in the ACCOUNTS table in the database.
-
-- `account`: an instance of the Account class to be updated in the database.
-
-### delete(int id)
-
-This method deletes an account record from the ACCOUNTS table in the database.
-
-- `id`: the id of the account to be deleted.
-
-### list()
-
-This method retrieves all account records from the ACCOUNTS table in the database and returns them as a list of Account objects.
-
 ## Account Class
 
 This class represents a bank account.
 
-### Account(String number, double balance)
-
-This constructor creates a new account with the given account number and balance.
-
-- `number`: the account number.
-- `balance`: the account balance.
-
-### Account(int id, String number, double balance)
-
-This constructor creates a new account with the given id, account number, and balance.
-
-- `id`: the account id.
-- `number`: the account number.
-- `balance`: the account balance.
-
-### withdraw(double amount)
-
-This method withdraws the given amount from the account balance.
-
-- `amount`: the amount to be withdrawn.
 
 ## Installation
 
