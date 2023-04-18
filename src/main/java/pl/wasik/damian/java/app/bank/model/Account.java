@@ -1,5 +1,7 @@
 package pl.wasik.damian.java.app.bank.model;
 
+import pl.wasik.damian.java.app.bank.exception.AccountException;
+
 import java.util.logging.Logger;
 
 public class Account {
@@ -36,6 +38,7 @@ public class Account {
 
     /**
      * This method deposit the given amount to the account balance.
+     *
      * @param amount the amount to deposit
      * @return account balance after deposit
      */

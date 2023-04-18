@@ -3,11 +3,7 @@ package pl.wasik.damian.java.app.bank.dao;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pl.wasik.damian.java.app.bank.exception.create.CreateAccountException;
-import pl.wasik.damian.java.app.bank.exception.delete.DeleteAccountException;
-import pl.wasik.damian.java.app.bank.exception.list.ListAccountException;
-import pl.wasik.damian.java.app.bank.exception.read.ReadAccountEcception;
-import pl.wasik.damian.java.app.bank.exception.update.UpdateAccountException;
+import pl.wasik.damian.java.app.bank.exception.AccountException;
 import pl.wasik.damian.java.app.bank.model.Account;
 import pl.wasik.damian.java.app.bank.utils.UniqueIdGenerator;
 
@@ -44,11 +40,11 @@ class AccountDaoIntegrationTest {
 //    }
 
     @Test
-    void givenCreateNewAccount_whenCreateAccountInDatabases_thenSearchAccountId1() throws CreateAccountException, ReadAccountEcception {
+    void givenCreateNewAccount_whenCreateAccountInDatabases_thenSearchAccountId1() throws AccountException {
         //Given
         AccountDao accountDao = new AccountDao();
         Account damianAccount = new Account("1355-2000-1789-8978", ACCOUNT_BALANCE_100);
-        Account jolaAccount = new Account("1356-2000-1789-8978", 200.00);
+        Account jolaAccount = new Account("1356-2000-1789-8978", -100.00);
 
         //When
         accountDao.create(damianAccount);
@@ -63,7 +59,7 @@ class AccountDaoIntegrationTest {
     }
 
     @Test
-    void givenCreateNewAccount_whenReadAccountId1_thenCheckTheAccountNumber() throws CreateAccountException, ReadAccountEcception {
+    void givenCreateNewAccount_whenReadAccountId1_thenCheckTheAccountNumber() throws AccountException {
         //Given
         AccountDao accountDao = new AccountDao();
         Account damianAccount = new Account("1355-2000-1789-8978", ACCOUNT_BALANCE_100);
@@ -77,7 +73,7 @@ class AccountDaoIntegrationTest {
     }
 
     @Test
-    void givenCreateNewAccount_whenUpdateAccount_thenCheckEqualsBalancesOfAccounts() throws CreateAccountException, ReadAccountEcception, UpdateAccountException {
+    void givenCreateNewAccount_whenUpdateAccount_thenCheckEqualsBalancesOfAccounts() throws AccountException {
         //Given
         AccountDao accountDao = new AccountDao();
         Account damianAccount = new Account("1355-2000-1789-8978", ACCOUNT_BALANCE_100);
@@ -93,7 +89,7 @@ class AccountDaoIntegrationTest {
     }
 
     @Test
-    void givenCreateNewAccount_whenDeleteAccountById_thenCheckingToSeeIfTheAccountHasBeenDeleted() throws CreateAccountException, ReadAccountEcception, DeleteAccountException {
+    void givenCreateNewAccount_whenDeleteAccountById_thenCheckingToSeeIfTheAccountHasBeenDeleted() throws AccountException {
         //Given
         AccountDao accountDao = new AccountDao();
         Account damianAccount = new Account("1355-2000-1789-8978", ACCOUNT_BALANCE_100);
@@ -108,7 +104,7 @@ class AccountDaoIntegrationTest {
     }
 
     @Test
-    void givenCreateNewAccount_whenAddingTheNewAccountToTheList_theCheckingTheListSizeEquals1() throws CreateAccountException, ListAccountException {
+    void givenCreateNewAccount_whenAddingTheNewAccountToTheList_theCheckingTheListSizeEquals1() throws AccountException {
         //Given
         AccountDao accountDao = new AccountDao();
         Account damianAccount = new Account("1355-2000-1789-8978", ACCOUNT_BALANCE_100);
@@ -123,6 +119,17 @@ class AccountDaoIntegrationTest {
                 () -> Assertions.assertNotNull(accounts, " accounts is null"),
                 () -> Assertions.assertEquals(ACCOUNTS_SIZE_1, listSize, " account size isn't equals" + ACCOUNTS_SIZE_1)
         );
+    }
+
+    @Test
+    void testAccountException() throws AccountException {
+        //Given
+        Account account = new Account("21000122222", -100);
+        AccountDao accountDao = new AccountDao();
+
+        //When
+        //Then
+        Assertions.assertDoesNotThrow(() -> accountDao.create(account), "exception was thrown");
     }
 }
 // TODO: 07.03.2023 Zamienić testy jednostkowe na integracyjne - dwie metody.

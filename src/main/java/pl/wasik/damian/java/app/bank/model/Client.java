@@ -1,5 +1,6 @@
 package pl.wasik.damian.java.app.bank.model;
 
+import pl.wasik.damian.java.app.bank.exception.AccountException;
 import pl.wasik.damian.java.app.bank.utils.UniqueIdentifierGenerator;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class Client {
         this.address = address;
     }
 
-    public Account openAccount() {
+    public Account openAccount() throws AccountException {
         LOGGER.info("openAccount(" + firstName + ", " + lastName + ")");
 //        String number = UUID.randomUUID().toString();
         String number = UniqueIdentifierGenerator.generateAccountNumber();

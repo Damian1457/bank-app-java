@@ -2,6 +2,7 @@ package pl.wasik.damian.java.app.bank.cli;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import pl.wasik.damian.java.app.bank.exception.AccountException;
 import pl.wasik.damian.java.app.bank.model.Account;
 import pl.wasik.damian.java.app.bank.model.Address;
 import pl.wasik.damian.java.app.bank.model.Bank;
@@ -18,7 +19,7 @@ class ApplicationCliTest {
     private static final TransferStatus TRANSFER_STATUS_OK = TransferStatus.OK;
 
     @Test
-    void testApplication() {
+    void testApplication() throws AccountException {
         //Given
         ApplicationCli applicationCli = new ApplicationCli();
         Address smallBankAddress = new Address("street", "houseNumber", "postalCode");

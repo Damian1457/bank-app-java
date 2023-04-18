@@ -2,12 +2,13 @@ package pl.wasik.damian.java.app.bank.model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import pl.wasik.damian.java.app.bank.exception.AccountException;
 
 class TransferIntegrationTest {
     private static final double AMOUNT_10 = 10.0;
 
     @Test
-    void transfer() {
+    void transfer() throws AccountException {
         //Given
         Account accountFrom = new Account("11", 0.0);
         accountFrom.deposit(AMOUNT_10);
@@ -22,7 +23,7 @@ class TransferIntegrationTest {
     }
 
     @Test
-    void transferAccountTo() {
+    void transferAccountTo() throws AccountException {
         //Given
         Account accountFrom = new Account("11", 0.0);
         accountFrom.deposit(AMOUNT_10);

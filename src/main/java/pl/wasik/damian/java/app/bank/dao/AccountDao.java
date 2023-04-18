@@ -1,9 +1,10 @@
 package pl.wasik.damian.java.app.bank.dao;
 
+import pl.wasik.damian.java.app.bank.exception.AccountException;
 import pl.wasik.damian.java.app.bank.exception.create.CreateAccountException;
 import pl.wasik.damian.java.app.bank.exception.delete.DeleteAccountException;
 import pl.wasik.damian.java.app.bank.exception.list.ListAccountException;
-import pl.wasik.damian.java.app.bank.exception.read.ReadAccountEcception;
+import pl.wasik.damian.java.app.bank.exception.read.ReadAccountException;
 import pl.wasik.damian.java.app.bank.exception.update.UpdateAccountException;
 import pl.wasik.damian.java.app.bank.model.Account;
 import pl.wasik.damian.java.app.bank.utils.UniqueIdGenerator;
@@ -44,7 +45,7 @@ public class AccountDao {
 
     // C - create
 //    public void create(int id, String accountNumber, double balance) {
-    public Account create(Account account) throws CreateAccountException {
+    public Account create(Account account) throws AccountException {
 
         LOGGER.info("create(" + account + ")");
 
@@ -60,13 +61,13 @@ public class AccountDao {
 
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Database error", e);
-            throw new CreateAccountException("Enable to create account", e);
+            throw new CreateAccountException("The account cannot be created", e);
         }
         return account;
     }
 
     // R - read
-    public Account read(int id) throws ReadAccountEcception {
+    public Account read(int id) throws AccountException { //Tylko AccountException
 
         LOGGER.info("read(" + id + ")");
 
@@ -89,14 +90,14 @@ public class AccountDao {
 
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Database error", e);
-            throw new ReadAccountEcception("There is no account with this id number", e);
+            throw new ReadAccountException("There is no account with this id number", e);
         }
-        LOGGER.log(Level.SEVERE, "There is no account with the given id number " + id);
+        LOGGER.info("read(...) = " + null);
         return null;
     }
 
     // U - update
-    public Account update(Account account) throws UpdateAccountException {
+    public Account update(Account account) throws AccountException {
         LOGGER.info("update(" + account + ")");
 
         try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
@@ -113,12 +114,11 @@ public class AccountDao {
             LOGGER.log(Level.SEVERE, "Database error", e);
             throw new UpdateAccountException("No account to change", e);
         }
-
         return account;
     }
 
     // D - delete
-    public void delete(int id) throws DeleteAccountException {
+    public void delete(int id) throws AccountException {
 
         LOGGER.info("delete(" + id + ")");
 
@@ -139,7 +139,7 @@ public class AccountDao {
     }
 
     // L - list
-    public List<Account> list() throws ListAccountException {
+    public List<Account> list() throws AccountException {
         List<Account> accounts = new ArrayList<>();
 
         try {

@@ -2,6 +2,7 @@ package pl.wasik.damian.java.app.bank.model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import pl.wasik.damian.java.app.bank.exception.AccountException;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
 class ClientTest {
 
     @Test
-    void openAccount() {
+    void openAccount() throws AccountException {
         //Given
         Client client = new Client("Damian", "Wasik", new Address());
 
@@ -24,7 +25,7 @@ class ClientTest {
     }
 
     @Test
-    void testAllAccounts() {
+    void testAllAccounts() throws AccountException {
         //Given
         Client client = new Client("Damian", "Wasik", new Address());
         Account accountDamian = client.openAccount();
