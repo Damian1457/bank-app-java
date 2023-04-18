@@ -1,5 +1,6 @@
 package pl.wasik.damian.java.app.bank.cli;
 
+import pl.wasik.damian.java.app.bank.exception.AccountException;
 import pl.wasik.damian.java.app.bank.model.Account;
 import pl.wasik.damian.java.app.bank.model.Address;
 import pl.wasik.damian.java.app.bank.model.Bank;
@@ -11,7 +12,7 @@ import java.util.Scanner;
 
 
 public class ApplicationCli {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws AccountException {
 
         System.out.println("Welcome in Bank");
 

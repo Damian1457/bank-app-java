@@ -2,12 +2,12 @@ package pl.wasik.damian.java.app.bank.exception.read;
 
 import pl.wasik.damian.java.app.bank.exception.AccountException;
 
-public class ReadAccountEcception extends AccountException {
-    public ReadAccountEcception(String message) {
+public class ReadAccountException extends AccountException {
+    public ReadAccountException(String message) {
         super(message);
     }
 
-    public ReadAccountEcception(String message, Throwable cause) {
+    public ReadAccountException(String message, Throwable cause) {
         super(message, cause);
     }
 }
