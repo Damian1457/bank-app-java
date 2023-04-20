@@ -19,7 +19,8 @@ The project is under constant development, with plans to add new functionality i
 **4. [Configuration](#configuration)**<br/>
 **5. [Usage](#usage)**
 
-## Application Model 
+## Application Model
+
 ![Ten model składa się z kilku klas reprezentujących różne obiekty w aplikacji bankowej:](C:\Photos\model.png)
 >This model consists of several classes representing different objects in a bank application:
 
