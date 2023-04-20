@@ -21,7 +21,7 @@ The project is under constant development, with plans to add new functionality i
 
 ## Application Model
 
-![Ten model składa się z kilku klas reprezentujących różne obiekty w aplikacji bankowej:](C:\Photos\model.png)
+
 >This model consists of several classes representing different objects in a bank application:
 
 >1. The Account class represents a bank account and has fields such as id, number, and balance, which describe the account number and its balance. It also has methods for withdrawing or depositing funds from the account. The toString method is used to return a text representation of the object. 
