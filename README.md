@@ -64,9 +64,9 @@ LOGGER.info("clearDatabaseRecords(...)");
 } 
 ```
 ```Java
-2. The create(Account account) method creates a new account in the database with the specified account number and balance. It generates a unique ID for the account using the UniqueIdGenerator class and returns the created account object.
+  2. The create(Account account) method creates a new account in the database with the specified account number and balance. It generates a unique ID for the account using the UniqueIdGenerator class and returns the created account object.
 
-public Account create(Account account) throws AccountException {
+  public Account create(Account account) throws AccountException {
 
         LOGGER.info("create(" + account + ")");
 
