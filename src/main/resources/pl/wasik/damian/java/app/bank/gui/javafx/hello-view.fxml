@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -13,7 +12,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.wasik.damian.java.app.bank.gui.javafx.LoginController">
    <left>
-      <AnchorPane prefHeight="407.0" prefWidth="228.0" style="-fx-background-color: #44a832; -fx-background-color: ;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="407.0" prefWidth="228.0" style="-fx-background-color: #44a832;" BorderPane.alignment="CENTER">
          <children>
             <Label alignment="CENTER" layoutX="2.0" layoutY="173.0" prefHeight="17.0" prefWidth="227.0" text="BGK Bank" textFill="#e8e6e6">
                <font>
@@ -44,25 +43,19 @@
             </Label>
             <Label alignment="CENTER" layoutX="20.0" layoutY="110.0" prefHeight="27.0" prefWidth="157.0" text="Username" textFill="#0d0d0d">
                <font>
-                  <Font name="Arial Bold" size="14.0" />
+                  <Font name="Arial" size="14.0" />
                </font>
                <effect>
                   <InnerShadow />
                </effect>
-               <padding>
-                  <Insets right="6.0" />
-               </padding>
             </Label>
-            <Label alignment="CENTER" layoutX="20.0" layoutY="147.0" prefHeight="27.0" prefWidth="157.0" text="Password" textFill="#0a0a0a">
+            <Label alignment="CENTER" layoutX="20.0" layoutY="147.0" prefHeight="27.0" prefWidth="157.0" text="Password" textFill="#0d0d0d">
                <font>
-                  <Font name="Arial Bold" size="14.0" />
+                  <Font name="Arial" size="14.0" />
                </font>
                <effect>
                   <InnerShadow />
                </effect>
-               <padding>
-                  <Insets right="6.0" />
-               </padding>
             </Label>
             <TextField fx:id="usernameTextField" layoutX="145.0" layoutY="111.0" promptText="Username" />
             <PasswordField fx:id="passwordTextField" layoutX="145.0" layoutY="148.0" promptText="Password" />

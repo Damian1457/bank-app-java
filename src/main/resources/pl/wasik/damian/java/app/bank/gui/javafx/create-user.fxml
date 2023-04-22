@@ -37,7 +37,7 @@
                   <Font name="Arial Bold" size="18.0" />
                </font>
             </Label>
-            <Button fx:id="buttonCreateAccount" layoutX="33.0" layoutY="335.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="304.0" style="-fx-background-color: #44a832;" text="Create Account" />
+            <Button fx:id="buttonCreateAccount" layoutX="33.0" layoutY="335.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="304.0" style="-fx-background-color: #44a832;" text="Create Account" textFill="#f8f6f6" />
             <Label layoutX="111.0" layoutY="96.0" text="Name">
                <padding>
                   <Insets right="10.0" />
