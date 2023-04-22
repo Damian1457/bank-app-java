@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1080.0" style="-fx-background-color: #44a832;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.wasik.damian.java.app.bank.gui.javafx.CreateAccountListController">
+   <children>
+      <TableView fx:id="accountTableView" layoutX="30.0" layoutY="46.0" prefHeight="502.0" prefWidth="1020.0">
+        <columns>
+          <TableColumn fx:id="idTableColumn" prefWidth="57.0" text="ID" />
+          <TableColumn fx:id="nameTableColumn" prefWidth="100.0" text="Name" />
+            <TableColumn fx:id="surnameTableColumn" prefWidth="97.0" text="Surname" />
+            <TableColumn fx:id="streetTableColumn" prefWidth="120.0" text="Street" />
+            <TableColumn fx:id="houseNumberTableColumn" prefWidth="103.0" text="House number" />
+            <TableColumn fx:id="postalCodeTableColumn" prefWidth="109.0" text="Postal code" />
+            <TableColumn fx:id="accountNumberTableColumn" prefWidth="312.0" text="Account number" />
+            <TableColumn prefWidth="121.0" text="Balance" />
+        </columns>
+      </TableView>
+      <Label layoutX="30.0" layoutY="563.0" prefHeight="21.0" prefWidth="173.0" text="Search User by ID: " textFill="#f5f4f4">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="searchIdTextField" layoutX="194.0" layoutY="561.0" prefHeight="17.0" prefWidth="34.0" promptText="id" />
+      <Label layoutX="259.0" layoutY="563.0" prefHeight="21.0" prefWidth="165.0" text="Delete User by ID: " textFill="#f5f4f4">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="deleteIdTextField" layoutX="417.0" layoutY="561.0" prefHeight="17.0" prefWidth="34.0" promptText="id" />
+      <Label layoutX="390.0" layoutY="8.0" prefHeight="27.0" prefWidth="300.0" text="Accounts in BGK Bank" textFill="#f5f4f4">
+         <font>
+            <Font name="Arial Bold" size="24.0" />
+         </font>
+         <effect>
+            <DropShadow blurType="ONE_PASS_BOX" />
+         </effect>
+      </Label>
+   </children>
+</Pane>
