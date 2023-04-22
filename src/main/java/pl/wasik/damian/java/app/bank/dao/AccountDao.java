@@ -77,8 +77,8 @@ public class AccountDao {
 
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM ACCOUNTS WHERE ID=?");
             preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
 
+            ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 int accountId = resultSet.getInt("ID");
                 String accountNumber = resultSet.getString("ACC_NO");
