@@ -75,7 +75,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                pl.wasik.damian.java.app.bank.gui.javafx/pl.wasik.damian.java.app.bank.gui.javafx.HelloApplication
+                                pl.wasik.damian.java.app.bank.gui.javafx/pl.wasik.damian.java.app.bank.gui.javafx.Login
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
