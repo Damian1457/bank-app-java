@@ -1,6 +1,10 @@
 package pl.wasik.damian.java.app.bank.model;
 
-public class Application {
+import javafx.stage.Stage;
+
+import java.io.IOException;
+
+public abstract class Application {
     public static void main(String[] args) {
 //        Bank damianBank = new Bank();
 //        Account damianAccount = new Account();
@@ -29,5 +33,7 @@ public class Application {
 //        System.out.println(dinnerTransferStatus.getName());
 //        System.out.println(dinnerTransferStatus.getCode());
     }
+
+    public abstract void start(Stage stage) throws IOException;
 }
 
