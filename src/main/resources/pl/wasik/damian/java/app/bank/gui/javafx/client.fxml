@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.wasik.damian.java.app.bank.gui.javafx.ClientController">
+   <children>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0">
+         <left>
+            <AnchorPane layoutX="3.0" layoutY="369.0" prefHeight="17.0" prefWidth="227.0" style="-fx-background-color: #44a832;" BorderPane.alignment="CENTER">
+               <children>
+                  <Label alignment="CENTER" layoutX="3.0" layoutY="369.0" prefHeight="17.0" prefWidth="227.0" text="Coppyright (c).All Rights Reserved" textFill="#f8f5f5">
+                     <font>
+                        <Font name="Arial" size="10.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="1.0" layoutY="173.0" prefHeight="17.0" prefWidth="227.0" text="BGK Bank" textFill="#f8f5f5">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </left>
+         <right>
+            <AnchorPane prefHeight="388.0" prefWidth="370.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label alignment="CENTER" layoutX="16.0" layoutY="41.0" prefHeight="27.0" prefWidth="325.0" text="Banking Transactions" textFill="#141414">
+                     <font>
+                        <Font name="Arial Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="buttonCreateAccount" layoutX="197.0" layoutY="368.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="129.0" style="-fx-background-color: #44a832;" text="Logout" textFill="#f8f6f6" />
+                  <Label layoutX="42.0" layoutY="146.0" text="Account form" textFill="#0d0d0d" AnchorPane.rightAnchor="235.0">
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="56.0" layoutY="184.0" text="Account to" textFill="#0d0d0d">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="27.0" layoutY="106.0" text="Current balance " textFill="#0d0d0d">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="nameCreateTextfield" layoutX="131.0" layoutY="142.0" prefHeight="25.0" prefWidth="204.0" promptText="Account number" AnchorPane.bottomAnchor="283.0" />
+                  <TextField fx:id="surnameCreateTextField" layoutX="131.0" layoutY="179.0" prefHeight="25.0" prefWidth="202.0" promptText="Account number" />
+                  <Label layoutX="74.0" layoutY="223.0" text="Amount" textFill="#0d0d0d">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="streetCreateTextField" layoutX="131.0" layoutY="218.0" prefHeight="25.0" prefWidth="202.0" promptText="Enter the amount" />
+                  <TextField fx:id="houseCreateTextField" layoutX="130.0" layoutY="104.0" prefHeight="25.0" prefWidth="205.0" promptText="100.00" />
+                  <Button fx:id="buttonCreateAccount1" layoutX="48.0" layoutY="368.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0" style="-fx-background-color: #44a832;" text="Send" textFill="#f8f6f6" />
+               </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </AnchorPane>
+         </right>
+      </BorderPane>
+   </children>
+</AnchorPane>
