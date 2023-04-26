@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import pl.wasik.damian.java.app.bank.dao.AccountDao;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -29,13 +28,19 @@ public class LoginController {
     public TextField userNameTextField;
 
     @FXML
+    public Button signUpButton;
+
+    @FXML
     private Label loginMessageLabel;
 
     @FXML
-    private CreateUser createUser = new CreateUser();
+    private CreateUserView createUser = new CreateUserView();
 
-    public void setSignUpButtonOnAction(ActionEvent event) throws IOException {
+    public void setSignUpButtonOnAction() throws IOException {
         try {
+            Stage currentStage = (Stage) signUpButton.getScene().getWindow();
+            currentStage.close();
+            
             createUser.start(new Stage());
         } catch (IOException e) {
             e.printStackTrace();
