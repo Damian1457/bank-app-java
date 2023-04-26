@@ -37,7 +37,7 @@
                   <Font name="Arial Bold" size="18.0" />
                </font>
             </Label>
-            <Button fx:id="buttonCreateAccount" layoutX="33.0" layoutY="368.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="304.0" style="-fx-background-color: #44a832;" text="Create Account" textFill="#f8f6f6" />
+            <Button fx:id="buttonCreateAccount" layoutX="33.0" layoutY="385.0" mnemonicParsing="false" onAction="#createAccountButtonOnAction" prefHeight="30.0" prefWidth="304.0" style="-fx-background-color: #44a832;" text="Create Account" textFill="#f8f6f6" />
             <Label layoutX="111.0" layoutY="87.0" text="Name" textFill="#0d0d0d" AnchorPane.rightAnchor="210.0">
                <padding>
                   <Insets right="10.0" />
@@ -76,13 +76,18 @@
                   <Font name="Arial" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="postalCreateTextField1" layoutX="160.0" layoutY="275.0" promptText="Password" />
+            <TextField fx:id="passwordCreateTextField" layoutX="160.0" layoutY="275.0" promptText="Password" />
             <Label layoutX="36.0" layoutY="317.0" text="Confirm password" textFill="#0d0d0d">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="postalCreateTextField11" layoutX="160.0" layoutY="312.0" promptText="Confirm password" />
+            <TextField fx:id="confirmPasswordCreateTextField" layoutX="160.0" layoutY="312.0" promptText="Confirm password" />
+            <Label fx:id="labelLoginMessages" alignment="CENTER" layoutX="90.0" layoutY="360.0" prefHeight="17.0" prefWidth="191.0" textFill="#e80606">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Label>
          </children>
          <BorderPane.margin>
             <Insets />
