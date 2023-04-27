@@ -2,6 +2,7 @@ package pl.wasik.damian.java.app.bank.gui.javafx;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -22,13 +23,16 @@ public class LoginController {
     private static final Logger LOGGER = Logger.getLogger(LoginController.class.getName());
 
     @FXML
-    public PasswordField passwordTextField;
+    private PasswordField passwordTextField;
 
     @FXML
-    public TextField userNameTextField;
+    private TextField userNameTextField;
 
     @FXML
-    public Button signUpButton;
+    private Button signUpButton;
+
+    @FXML
+    private Button goAdminButton;
 
     @FXML
     private Label loginMessageLabel;
@@ -36,11 +40,14 @@ public class LoginController {
     @FXML
     private CreateUserView createUser = new CreateUserView();
 
+    @FXML
+    private CreateAccountList accountList = new CreateAccountList();
+
     public void setSignUpButtonOnAction() throws IOException {
         try {
             Stage currentStage = (Stage) signUpButton.getScene().getWindow();
             currentStage.close();
-            
+
             createUser.start(new Stage());
         } catch (IOException e) {
             e.printStackTrace();
@@ -75,6 +82,17 @@ public class LoginController {
             }
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Database error", e);
+            e.printStackTrace();
+        }
+    }
+
+    public void adminButtonOnAction() throws IOException {
+        try {
+            Stage currentStage = (Stage) goAdminButton.getScene().getWindow();
+            currentStage.close();
+
+            accountList.start(new Stage());
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
