@@ -1,7 +1,5 @@
 package pl.wasik.damian.java.app.bank.model;
 
-import pl.wasik.damian.java.app.bank.exception.AccountException;
-
 import java.util.logging.Logger;
 
 public class Account {
@@ -82,4 +80,5 @@ public class Account {
 --    private double balance;
 --}
      */
+
 }

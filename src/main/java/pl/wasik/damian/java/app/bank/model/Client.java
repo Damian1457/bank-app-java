@@ -1,6 +1,5 @@
 package pl.wasik.damian.java.app.bank.model;
 
-import pl.wasik.damian.java.app.bank.exception.AccountException;
 import pl.wasik.damian.java.app.bank.utils.UniqueIdentifierGenerator;
 
 import java.util.ArrayList;
@@ -9,6 +8,7 @@ import java.util.logging.Logger;
 
 public class Client {
     private static final Logger LOGGER = Logger.getLogger(Client.class.getName());
+    private int id;
     private String firstName;
     private String lastName;
     //    private String street;
@@ -23,7 +23,18 @@ public class Client {
         this.address = address;
     }
 
-    public Account openAccount() throws AccountException {
+    public Client(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public Client(int id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public Account openAccount() {
         LOGGER.info("openAccount(" + firstName + ", " + lastName + ")");
 //        String number = UUID.randomUUID().toString();
         String number = UniqueIdentifierGenerator.generateAccountNumber();
@@ -38,6 +49,18 @@ public class Client {
         LOGGER.info("allAccounts()");
         LOGGER.info("allAccounts(...) = " + this.accounts);
         return this.accounts;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     @Override
