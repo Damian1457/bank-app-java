@@ -46,14 +46,13 @@ public class AccountDao {
     // C - create
 //    public void create(int id, String accountNumber, double balance) {
     public Account create(Account account) throws AccountException {
-
         LOGGER.info("create(" + account + ")");
 
         try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa")) {
             LOGGER.info("" + connection);
 
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO ACCOUNTS (ID, ACC_NO, BALANCE) VALUES(?, ?, ?);");
-            preparedStatement.setInt(1, UniqueIdGenerator.getNextId(connection));
+            preparedStatement.setInt(1, UniqueIdGenerator.getNextId(connection, "ACCOUNTS_SEQ"));
             preparedStatement.setString(2, account.getNumber());
             preparedStatement.setDouble(3, account.balance());
             int executeUpdate = preparedStatement.executeUpdate();
@@ -67,8 +66,7 @@ public class AccountDao {
     }
 
     // R - read
-    public Account read(int id) throws AccountException { //Tylko AccountException
-
+    public Account read(int id) throws AccountException { //Only AccountException
         LOGGER.info("read(" + id + ")");
 
         try {
@@ -100,9 +98,8 @@ public class AccountDao {
     public Account update(Account account) throws AccountException {
         LOGGER.info("update(" + account + ")");
 
-        try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
-             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE ACCOUNTS SET ACC_NO=?, BALANCE=? WHERE ID=?")) {
-
+        try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa")) {
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE ACCOUNTS SET ACC_NO=?, BALANCE=? WHERE ID=?");
             preparedStatement.setString(1, account.getNumber());
             preparedStatement.setDouble(2, account.balance());
             preparedStatement.setInt(3, account.getId());
@@ -118,24 +115,23 @@ public class AccountDao {
     }
 
     // D - delete
-    public void delete(int id) throws AccountException {
-
+    public int delete(int id) throws AccountException {
         LOGGER.info("delete(" + id + ")");
+
+        int executeDelete = 0;
 
         try {
             Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
             LOGGER.info("" + connection);
-
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM ACCOUNTS WHERE ID=?");
             preparedStatement.setInt(1, id);
-
-            int executeDelete = preparedStatement.executeUpdate();
+            executeDelete = preparedStatement.executeUpdate();
             LOGGER.info("delete(...) = " + executeDelete);
-
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Database error", e);
-            throw new DeleteAccountException("There is no account with this id number", e);
+            throw new DeleteAccountException("There is no account with this id number to delete", e);
         }
+        return executeDelete;
     }
 
     // L - list
@@ -146,8 +142,8 @@ public class AccountDao {
             Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
             LOGGER.info("" + connection);
 
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM ACCOUNTS ORDER BY ID;");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM ACCOUNTS ORDER BY ID;");
+            ResultSet resultSet = preparedStatement.executeQuery();
             LOGGER.info("" + resultSet);
 
             while (resultSet.next()) {

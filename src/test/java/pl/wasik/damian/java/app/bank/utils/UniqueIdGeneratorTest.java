@@ -32,8 +32,8 @@ class UniqueIdGeneratorTest {
         Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 
         //When
-        int id1 = UniqueIdGenerator.getNextId(connection);
-        int id2 = UniqueIdGenerator.getNextId(connection);
+        int id1 = UniqueIdGenerator.getNextId(connection, "ACCOUNTS_SEQ");
+        int id2 = UniqueIdGenerator.getNextId(connection, "ACCOUNTS_SEQ");
 
         //Then
         Assertions.assertNotEquals(id1, id2, " id1 is equals id2");

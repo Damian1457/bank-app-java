@@ -30,7 +30,7 @@ class AccountDaoIntegrationTest {
 
         Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
         UniqueIdGenerator uniqueIdGenerator = new UniqueIdGenerator();
-        uniqueIdGenerator.clearAccountTable(connection);
+        uniqueIdGenerator.clearTable(connection, "ACCOUNTS", "ACCOUNTS_SEQ");
     }
 
 //    @AfterEach
@@ -104,7 +104,7 @@ class AccountDaoIntegrationTest {
     }
 
     @Test
-    void givenCreateNewAccount_whenAddingTheNewAccountToTheList_theCheckingTheListSizeEquals1() throws AccountException {
+    void givenCreateNewAccount_whenAddingTheNewAccountToTheList_thenCheckingTheListSizeEquals1() throws AccountException {
         //Given
         AccountDao accountDao = new AccountDao();
         Account damianAccount = new Account("1355-2000-1789-8978", ACCOUNT_BALANCE_100);

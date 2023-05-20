@@ -10,4 +10,5 @@ module pl.wasik.damian.java.app.bank.gui.javafx {
 
     opens pl.wasik.damian.java.app.bank.gui.javafx to javafx.fxml;
     exports pl.wasik.damian.java.app.bank.gui.javafx;
+
 }

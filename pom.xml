@@ -51,7 +51,7 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>2.1.214</version>
-            <scope>test</scope>
+<!--            <scope>test</scope>-->
         </dependency>
 
         <dependency>
@@ -83,7 +83,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                pl.wasik.damian.java.app.bank.gui.javafx/pl.wasik.damian.java.app.bank.gui.javafx.Login
+                                pl.wasik.damian.java.app.bank.gui.javafx/pl.wasik.damian.java.app.bank.model.Account.Login
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
