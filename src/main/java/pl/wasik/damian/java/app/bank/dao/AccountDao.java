@@ -49,8 +49,6 @@ public class AccountDao {
         LOGGER.info("create(" + account + ")");
 
         try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa")) {
-            LOGGER.info("" + connection);
-
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO ACCOUNTS (ID, ACC_NO, BALANCE) VALUES(?, ?, ?);");
             preparedStatement.setInt(1, UniqueIdGenerator.getNextId(connection, "ACCOUNTS_SEQ"));
             preparedStatement.setString(2, account.getNumber());
@@ -71,8 +69,6 @@ public class AccountDao {
 
         try {
             Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
-            LOGGER.info("" + connection);
-
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM ACCOUNTS WHERE ID=?");
             preparedStatement.setInt(1, id);
 
@@ -117,7 +113,6 @@ public class AccountDao {
     // D - delete
     public int delete(int id) throws AccountException {
         LOGGER.info("delete(" + id + ")");
-
         int executeDelete = 0;
 
         try {
@@ -127,6 +122,7 @@ public class AccountDao {
             preparedStatement.setInt(1, id);
             executeDelete = preparedStatement.executeUpdate();
             LOGGER.info("delete(...) = " + executeDelete);
+
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Database error", e);
             throw new DeleteAccountException("There is no account with this id number to delete", e);
@@ -136,6 +132,7 @@ public class AccountDao {
 
     // L - list
     public List<Account> list() throws AccountException {
+        LOGGER.info("list()");
         List<Account> accounts = new ArrayList<>();
 
         try {
@@ -157,6 +154,7 @@ public class AccountDao {
             LOGGER.log(Level.SEVERE, "Database error", e);
             throw new ListAccountException("The list of accounts is empty", e);
         }
+        LOGGER.info("list(...) = " + accounts);
         return accounts;
     }
 }
