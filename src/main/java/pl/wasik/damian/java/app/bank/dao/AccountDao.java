@@ -48,8 +48,8 @@ public class AccountDao {
     public Account create(Account account) throws AccountException {
         LOGGER.info("create(" + account + ")");
 
-        try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa")) {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO ACCOUNTS (ID, ACC_NO, BALANCE) VALUES(?, ?, ?);");
+        try (Connection connection = ConnectionManager.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO ACCOUNTS (ID, ACC_NO, BALANCE) VALUES(?, ?, ?);")) {
             preparedStatement.setInt(1, UniqueIdGenerator.getNextId(connection, "ACCOUNTS_SEQ"));
             preparedStatement.setString(2, account.getNumber());
             preparedStatement.setDouble(3, account.balance());
@@ -67,9 +67,8 @@ public class AccountDao {
     public Account read(int id) throws AccountException { //Only AccountException
         LOGGER.info("read(" + id + ")");
 
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM ACCOUNTS WHERE ID=?");
+        try (Connection connection = ConnectionManager.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM ACCOUNTS WHERE ID=?")) {
             preparedStatement.setInt(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
