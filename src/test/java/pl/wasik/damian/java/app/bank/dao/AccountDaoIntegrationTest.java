@@ -104,7 +104,7 @@ class AccountDaoIntegrationTest {
     }
 
     @Test
-    void givenCreateNewAccount_whenAddingTheNewAccountToTheList_thenCheckingTheListSizeEquals1() throws AccountException {
+    void givenCreateNewAccount_whenAddingTheNewAccountToTheList_thenCheckingTheListSizeEqualsOne() throws AccountException {
         //Given
         AccountDao accountDao = new AccountDao();
         Account damianAccount = new Account("1355-2000-1789-8978", ACCOUNT_BALANCE_100);

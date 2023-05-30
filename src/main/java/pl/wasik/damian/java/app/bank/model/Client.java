@@ -14,7 +14,7 @@ public class Client {
     //    private String street;
 //    private String houseNumber;
 //    private String postalCode;
-    private Address address;
+    private Address address; // ADDRESS_ID -> Foreign Key
     private List<Account> accounts = new ArrayList<>();
 
     public Client(String firstName, String lastName, Address address) {
@@ -61,6 +61,14 @@ public class Client {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override

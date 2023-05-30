@@ -1,6 +1,7 @@
 package pl.wasik.damian.java.app.bank.model;
 
 public class Address {
+    private int id;
     private String street;
     private String houseNumber;
     private String postalCode;
@@ -12,6 +13,21 @@ public class Address {
         this.street = street;
         this.houseNumber = houseNumber;
         this.postalCode = postalCode;
+    }
+
+    public Address(int id, String street, String houseNumber, String postalCode) {
+        this.id = id;
+        this.street = street;
+        this.houseNumber = houseNumber;
+        this.postalCode = postalCode;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getStreet() {
