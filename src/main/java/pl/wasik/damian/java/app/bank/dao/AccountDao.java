@@ -1,11 +1,11 @@
 package pl.wasik.damian.java.app.bank.dao;
 
 import pl.wasik.damian.java.app.bank.exception.AccountException;
-import pl.wasik.damian.java.app.bank.exception.create.CreateAccountException;
-import pl.wasik.damian.java.app.bank.exception.delete.DeleteAccountException;
-import pl.wasik.damian.java.app.bank.exception.list.ListAccountException;
-import pl.wasik.damian.java.app.bank.exception.read.ReadAccountException;
-import pl.wasik.damian.java.app.bank.exception.update.UpdateAccountException;
+import pl.wasik.damian.java.app.bank.exception.account.CreateAccountException;
+import pl.wasik.damian.java.app.bank.exception.account.DeleteAccountException;
+import pl.wasik.damian.java.app.bank.exception.account.ListAccountException;
+import pl.wasik.damian.java.app.bank.exception.account.ReadAccountException;
+import pl.wasik.damian.java.app.bank.exception.account.UpdateAccountException;
 import pl.wasik.damian.java.app.bank.model.Account;
 import pl.wasik.damian.java.app.bank.utils.UniqueIdGenerator;
 
@@ -25,6 +25,7 @@ public class AccountDao {
 
     public void clearDatabaseRecords() {
         LOGGER.info("clearDatabaseRecords()");
+
         try {
             Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
             Statement statement = connection.createStatement();
@@ -43,8 +44,6 @@ public class AccountDao {
     //4. ResultSet
     //https://docs.oracle.com/javase/tutorial/jdbc/basics/index.html
 
-    // C - create
-//    public void create(int id, String accountNumber, double balance) {
     public Account create(Account account) throws AccountException {
         LOGGER.info("create(" + account + ")");
 
@@ -60,11 +59,11 @@ public class AccountDao {
             LOGGER.log(Level.SEVERE, "Database error", e);
             throw new CreateAccountException("The account cannot be created", e);
         }
+
         return account;
     }
 
-    // R - read
-    public Account read(int id) throws AccountException { //Only AccountException
+    public Account read(int id) throws AccountException {
         LOGGER.info("read(" + id + ")");
 
         try (Connection connection = ConnectionManager.getInstance().getConnection();
@@ -85,16 +84,16 @@ public class AccountDao {
             LOGGER.log(Level.SEVERE, "Database error", e);
             throw new ReadAccountException("There is no account with this id number", e);
         }
+
         LOGGER.info("read(...) = " + null);
         return null;
     }
 
-    // U - update
     public Account update(Account account) throws AccountException {
         LOGGER.info("update(" + account + ")");
 
-        try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa")) {
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE ACCOUNTS SET ACC_NO=?, BALANCE=? WHERE ID=?");
+        try (Connection connection = ConnectionManager.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE ACCOUNTS SET ACC_NO=?, BALANCE=? WHERE ID=?")) {
             preparedStatement.setString(1, account.getNumber());
             preparedStatement.setDouble(2, account.balance());
             preparedStatement.setInt(3, account.getId());
@@ -106,18 +105,16 @@ public class AccountDao {
             LOGGER.log(Level.SEVERE, "Database error", e);
             throw new UpdateAccountException("No account to change", e);
         }
+
         return account;
     }
 
-    // D - delete
     public int delete(int id) throws AccountException {
         LOGGER.info("delete(" + id + ")");
         int executeDelete = 0;
 
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
-            LOGGER.info("" + connection);
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM ACCOUNTS WHERE ID=?");
+        try (Connection connection = ConnectionManager.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM ACCOUNTS WHERE ID=?")) {
             preparedStatement.setInt(1, id);
             executeDelete = preparedStatement.executeUpdate();
             LOGGER.info("delete(...) = " + executeDelete);
@@ -126,19 +123,16 @@ public class AccountDao {
             LOGGER.log(Level.SEVERE, "Database error", e);
             throw new DeleteAccountException("There is no account with this id number to delete", e);
         }
+
         return executeDelete;
     }
 
-    // L - list
     public List<Account> list() throws AccountException {
         LOGGER.info("list()");
         List<Account> accounts = new ArrayList<>();
 
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
-            LOGGER.info("" + connection);
-
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM ACCOUNTS ORDER BY ID;");
+        try (Connection connection = ConnectionManager.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM ACCOUNTS ORDER BY ID;")) {
             ResultSet resultSet = preparedStatement.executeQuery();
             LOGGER.info("" + resultSet);
 
@@ -149,10 +143,12 @@ public class AccountDao {
                 Account account = new Account(id, number, balance);
                 accounts.add(account);
             }
+
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Database error", e);
             throw new ListAccountException("The list of accounts is empty", e);
         }
+
         LOGGER.info("list(...) = " + accounts);
         return accounts;
     }

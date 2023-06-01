@@ -2,9 +2,9 @@ package pl.wasik.damian.java.app.bank.service;
 
 import pl.wasik.damian.java.app.bank.dao.AccountDao;
 import pl.wasik.damian.java.app.bank.exception.AccountException;
-import pl.wasik.damian.java.app.bank.exception.delete.DeleteAccountException;
-import pl.wasik.damian.java.app.bank.exception.read.ReadAccountException;
-import pl.wasik.damian.java.app.bank.exception.update.UpdateAccountException;
+import pl.wasik.damian.java.app.bank.exception.account.DeleteAccountException;
+import pl.wasik.damian.java.app.bank.exception.account.ReadAccountException;
+import pl.wasik.damian.java.app.bank.exception.account.UpdateAccountException;
 import pl.wasik.damian.java.app.bank.model.Account;
 
 import java.util.List;

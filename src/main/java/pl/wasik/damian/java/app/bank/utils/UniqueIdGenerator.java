@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class UniqueIdGenerator {
-
     private static final Logger LOGGER = Logger.getLogger(UniqueIdGenerator.class.getName());
 
     public static Integer getNextId(Connection connection, String sequenceName) throws SQLException {

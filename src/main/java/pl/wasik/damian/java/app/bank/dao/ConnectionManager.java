@@ -6,12 +6,18 @@ import java.sql.SQLException;
 
 public class ConnectionManager {
     // FIXME: 30.05.2023 dodać loggery do konstruktora i do metod.
+
+    private static final String DATABASE_URL = "jdbc:h2:~/test";
+
     private static ConnectionManager connectionManager;
     private Connection connection;
 
     private ConnectionManager() {
         try {
-            this.connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
+            this.connection = DriverManager.getConnection(
+                    DatabasePropertiesManager.getInstance().getValue("db.url"),
+                    DatabasePropertiesManager.getInstance().getValue("db.username"),
+                    DatabasePropertiesManager.getInstance().getValue("db.password"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -42,7 +48,7 @@ public class ConnectionManager {
 
         try {
             if (this.connection != null && this.connection.isClosed()) {
-                this.connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
+                this.connection = DriverManager.getConnection(DATABASE_URL, "sa", "sa");
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
