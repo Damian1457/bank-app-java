@@ -25,8 +25,8 @@ class AccountDaoIntegrationTest {
 
     @BeforeEach
     void setUp() throws SQLException {
-        AccountDao accountDao = new AccountDao();
-        accountDao.clearDatabaseRecords();
+//            AccountDao accountDao = new AccountDao();
+//            accountDao.clearDatabaseRecords();
 
         Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
         UniqueIdGenerator uniqueIdGenerator = new UniqueIdGenerator();

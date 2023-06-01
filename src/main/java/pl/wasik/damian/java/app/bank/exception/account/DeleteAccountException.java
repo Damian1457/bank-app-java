@@ -1,4 +1,4 @@
-package pl.wasik.damian.java.app.bank.exception.delete;
+package pl.wasik.damian.java.app.bank.exception.account;
 
 import pl.wasik.damian.java.app.bank.exception.AccountException;
 
