@@ -1,5 +1,6 @@
 package pl.wasik.damian.java.app.bank.dao;
 
+import pl.wasik.damian.java.app.bank.constants.account.AccountDatabaseConstants;
 import pl.wasik.damian.java.app.bank.exception.AccountException;
 import pl.wasik.damian.java.app.bank.exception.account.CreateAccountException;
 import pl.wasik.damian.java.app.bank.exception.account.DeleteAccountException;
@@ -37,18 +38,11 @@ public class AccountDao {
         LOGGER.info("clearDatabaseRecords(...)");
     }
 
-    //Przepis na korzystanie z JDBC
-    //1. DriverManager
-    //2. Connection
-    //3. Statement/PrepareStatement
-    //4. ResultSet
-    //https://docs.oracle.com/javase/tutorial/jdbc/basics/index.html
-
     public Account create(Account account) throws AccountException {
         LOGGER.info("create(" + account + ")");
 
         try (Connection connection = ConnectionManager.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO ACCOUNTS (ID, ACC_NO, BALANCE) VALUES(?, ?, ?);")) {
+             PreparedStatement preparedStatement = connection.prepareStatement(AccountDatabaseConstants.CREATE_ACCOUNT)) {
             preparedStatement.setInt(1, UniqueIdGenerator.getNextId(connection, "ACCOUNTS_SEQ"));
             preparedStatement.setString(2, account.getNumber());
             preparedStatement.setDouble(3, account.balance());
@@ -67,14 +61,14 @@ public class AccountDao {
         LOGGER.info("read(" + id + ")");
 
         try (Connection connection = ConnectionManager.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM ACCOUNTS WHERE ID=?")) {
+             PreparedStatement preparedStatement = connection.prepareStatement(AccountDatabaseConstants.READ_ACCOUNT)) {
             preparedStatement.setInt(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                int accountId = resultSet.getInt("ID");
-                String accountNumber = resultSet.getString("ACC_NO");
-                double accountBalance = resultSet.getDouble("BALANCE");
+                int accountId = resultSet.getInt(AccountDatabaseConstants.COLUMN_ID);
+                String accountNumber = resultSet.getString(AccountDatabaseConstants.COLUMN_ACC_NO);
+                double accountBalance = resultSet.getDouble(AccountDatabaseConstants.COLUMN_BALANCE);
                 Account account = new Account(accountId, accountNumber, accountBalance);
                 LOGGER.info("read(...) = " + account);
                 return account;
@@ -93,7 +87,7 @@ public class AccountDao {
         LOGGER.info("update(" + account + ")");
 
         try (Connection connection = ConnectionManager.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE ACCOUNTS SET ACC_NO=?, BALANCE=? WHERE ID=?")) {
+             PreparedStatement preparedStatement = connection.prepareStatement(AccountDatabaseConstants.UPDATE_ACCOUNT)) {
             preparedStatement.setString(1, account.getNumber());
             preparedStatement.setDouble(2, account.balance());
             preparedStatement.setInt(3, account.getId());
@@ -114,7 +108,7 @@ public class AccountDao {
         int executeDelete = 0;
 
         try (Connection connection = ConnectionManager.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM ACCOUNTS WHERE ID=?")) {
+             PreparedStatement preparedStatement = connection.prepareStatement(AccountDatabaseConstants.DELETE_ACCOUNT)) {
             preparedStatement.setInt(1, id);
             executeDelete = preparedStatement.executeUpdate();
             LOGGER.info("delete(...) = " + executeDelete);
@@ -132,14 +126,14 @@ public class AccountDao {
         List<Account> accounts = new ArrayList<>();
 
         try (Connection connection = ConnectionManager.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM ACCOUNTS ORDER BY ID;")) {
+             PreparedStatement preparedStatement = connection.prepareStatement(AccountDatabaseConstants.GET_ACCOUNTS_LIST)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             LOGGER.info("" + resultSet);
 
             while (resultSet.next()) {
-                int id = resultSet.getInt("ID");
-                String number = resultSet.getString("ACC_NO");
-                double balance = resultSet.getDouble("BALANCE");
+                int id = resultSet.getInt(AccountDatabaseConstants.COLUMN_ID);
+                String number = resultSet.getString(AccountDatabaseConstants.COLUMN_ACC_NO);
+                double balance = resultSet.getDouble(AccountDatabaseConstants.COLUMN_BALANCE);
                 Account account = new Account(id, number, balance);
                 accounts.add(account);
             }
