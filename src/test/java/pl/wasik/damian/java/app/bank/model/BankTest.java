@@ -16,7 +16,7 @@ class BankTest {
         Client client = bank.registerClient("Damian", "Wasik", new Address());
 
         //Then
-        Assertions.assertNotNull(client, " client is null");
+        Assertions.assertNotNull(client, " Client is null");
     }
 
     @Test
@@ -28,6 +28,6 @@ class BankTest {
         List<Client> clients = bank.allClients();
 
         //Then
-        Assertions.assertNotNull(clients, " clients is null");
+        Assertions.assertNotNull(clients, " Clients is null");
     }
 }

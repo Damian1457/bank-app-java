@@ -10,7 +10,7 @@ import java.util.List;
 class ClientTest {
 
     @Test
-    void openAccount() throws AccountException {
+    void givenClient_whenOpenAccount_thenAccountIsNotNullAndHasNumber() {
         //Given
         Client client = new Client("Damian", "Wasik", new Address());
 
@@ -19,13 +19,13 @@ class ClientTest {
 
         //Then
         Assertions.assertAll(
-                () -> Assertions.assertNotNull(account, " account is null"),
-                () -> Assertions.assertNotNull(account.getNumber(), " account number is null")
+                () -> Assertions.assertNotNull(account, "Account is null"),
+                () -> Assertions.assertNotNull(account.getNumber(), "Account number is null")
         );
     }
 
     @Test
-    void testAllAccounts() throws AccountException {
+    void givenClientWithTwoAccounts_whenRetrieveAllAccounts_thenReturnAccountList() {
         //Given
         Client client = new Client("Damian", "Wasik", new Address());
         Account accountDamian = client.openAccount();
@@ -37,8 +37,8 @@ class ClientTest {
         //Then
         Assertions.assertAll(
                 () -> Assertions.assertEquals(2, accounts.size(), " 2 is not equals account.size()"),
-                () -> Assertions.assertEquals(accountDamian, accounts.get(0), " accountDamian is not equals accounts.get(0)"),
-                () -> Assertions.assertEquals(accountJacek, accounts.get(1), " accountDamian is not equals accounts.get(1)")
+                () -> Assertions.assertEquals(accountDamian, accounts.get(0), "AccountDamian is not equals accounts.get(0)"),
+                () -> Assertions.assertEquals(accountJacek, accounts.get(1), "AccountDamian is not equals accounts.get(1)")
         );
 
     }

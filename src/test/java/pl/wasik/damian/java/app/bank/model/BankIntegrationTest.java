@@ -8,22 +8,8 @@ import java.util.List;
 
 class BankIntegrationTest {
 
-//    private Bank bank;
-
-//    @BeforeEach
-//    void setUp() {
-//        System.out.println("Before test");
-//        bank = new Bank("BNP Paribas", new Address());
-//    }
-//
-//    @AfterEach
-//    void tearDown() {
-//        System.out.println("After test");
-//        bank = null;
-//    }
-
     @Test
-    void registerClient_whenAddClientToList_thenCheckClientWithList() {
+    void givenBankWithRegisteredClient_whenAddClientToList_thenCheckClientWithList() {
         //Given
         Bank bank = new Bank("BNP Paribas", new Address());
         List<Client> clients = new ArrayList<>();
@@ -34,11 +20,11 @@ class BankIntegrationTest {
         Client damianW = clients.get(0);
 
         //Then
-        Assertions.assertEquals(damianW, damian, " client is not equals damian");
+        Assertions.assertEquals(damianW, damian, "Client is not equals damian");
     }
 
     @Test
-    void allClients() {
+    void givenBankWithRegisteredClient_whenRetrieveAllClients_thenReturnClientList() {
         //Given
         Bank bank = new Bank("BNP Paribas", new Address());
         List<Client> clients = new ArrayList<>();
@@ -49,7 +35,6 @@ class BankIntegrationTest {
         List<Client> clientList = bank.allClients();
 
         //Then
-        Assertions.assertNotNull(clientList, " allClients is null");
-
+        Assertions.assertNotNull(clientList, "The 'allClients' list is null");
     }
 }

@@ -1,8 +1,9 @@
-package pl.wasik.damian.java.app.bank.dao;
+package pl.wasik.damian.java.app.bank.dao.account;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pl.wasik.damian.java.app.bank.dao.AccountDao;
 import pl.wasik.damian.java.app.bank.exception.AccountException;
 import pl.wasik.damian.java.app.bank.model.Account;
 import pl.wasik.damian.java.app.bank.utils.UniqueIdGenerator;
@@ -11,6 +12,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 class AccountDaoIntegrationTest {
 
@@ -49,11 +51,11 @@ class AccountDaoIntegrationTest {
         //When
         accountDao.create(damianAccount);
         accountDao.create(jolaAccount);
-        Account searchDamianAccount = accountDao.read(ACCOUNT_ID_1);
+        Optional<Account> searchDamianAccount = accountDao.read(ACCOUNT_ID_1);
 
         //Then
         Assertions.assertAll(
-                () -> Assertions.assertEquals(ACCOUNT_BALANCE_100, searchDamianAccount.balance(), " the account balance isn't equals " + ACCOUNT_BALANCE_100),
+                () -> Assertions.assertEquals(ACCOUNT_BALANCE_100, searchDamianAccount.orElseThrow().balance(), " the account balance isn't equals " + ACCOUNT_BALANCE_100),
                 () -> Assertions.assertNotNull(searchDamianAccount, " Damian account does not exist ")
         );
     }
@@ -66,10 +68,10 @@ class AccountDaoIntegrationTest {
 
         //When
         accountDao.create(damianAccount);
-        Account searchDamianAccount = accountDao.read(1);
+        Optional<Account> searchDamianAccount = accountDao.read(1);
 
         //Then
-        Assertions.assertEquals("1355-2000-1789-8978", searchDamianAccount.getNumber(), " account numbers are not the same");
+        Assertions.assertEquals("1355-2000-1789-8978", searchDamianAccount.orElseThrow().getNumber(), " account numbers are not the same");
     }
 
     @Test
@@ -82,10 +84,10 @@ class AccountDaoIntegrationTest {
         //When
         accountDao.create(damianAccount);
         accountDao.update(updateDamianAccount);
-        Account searchDamianAccount = accountDao.read(ACCOUNT_ID_1);
+        Optional<Account> searchDamianAccount = accountDao.read(ACCOUNT_ID_1);
 
         //Then
-        Assertions.assertNotEquals(searchDamianAccount.balance(), damianAccount.balance(), " balances are equal");
+        Assertions.assertNotEquals(searchDamianAccount.orElseThrow().balance(), damianAccount.balance(), " balances are equal");
     }
 
     @Test
@@ -97,10 +99,10 @@ class AccountDaoIntegrationTest {
         //When
         accountDao.create(damianAccount);
         accountDao.delete(1);
-        Account searchDamianAccount = accountDao.read(1);
+        Optional<Account> searchDamianAccount = accountDao.read(1);
 
         //Then
-        Assertions.assertNull(searchDamianAccount, " damianAccount still exists");
+        Assertions.assertTrue(searchDamianAccount.isEmpty(), " damianAccount still exists");
     }
 
     @Test

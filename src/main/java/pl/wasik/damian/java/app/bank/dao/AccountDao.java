@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -57,7 +58,7 @@ public class AccountDao {
         return account;
     }
 
-    public Account read(int id) throws AccountException {
+    public Optional<Account> read(int id) throws AccountException {
         LOGGER.info("read(" + id + ")");
 
         try (Connection connection = ConnectionManager.getInstance().getConnection();
@@ -71,7 +72,7 @@ public class AccountDao {
                 double accountBalance = resultSet.getDouble(AccountDatabaseConstants.COLUMN_BALANCE);
                 Account account = new Account(accountId, accountNumber, accountBalance);
                 LOGGER.info("read(...) = " + account);
-                return account;
+                return Optional.of(account);
             }
 
         } catch (SQLException e) {
@@ -79,11 +80,11 @@ public class AccountDao {
             throw new ReadAccountException("There is no account with this id number", e);
         }
 
-        LOGGER.info("read(...) = " + null);
-        return null;
+        LOGGER.info("read(...) = " + id);
+        return Optional.empty();
     }
 
-    public Account update(Account account) throws AccountException {
+    public Optional<Account> update(Account account) throws AccountException {
         LOGGER.info("update(" + account + ")");
 
         try (Connection connection = ConnectionManager.getInstance().getConnection();
@@ -93,6 +94,9 @@ public class AccountDao {
             preparedStatement.setInt(3, account.getId());
 
             int executeUpdate = preparedStatement.executeUpdate();
+            if (executeUpdate > 0) {
+                return Optional.of(account);
+            }
             LOGGER.info("update(...) = " + executeUpdate);
 
         } catch (SQLException e) {
@@ -100,25 +104,22 @@ public class AccountDao {
             throw new UpdateAccountException("No account to change", e);
         }
 
-        return account;
+        return Optional.empty();
     }
 
-    public int delete(int id) throws AccountException {
+    public void delete(int id) throws AccountException {
         LOGGER.info("delete(" + id + ")");
-        int executeDelete = 0;
 
         try (Connection connection = ConnectionManager.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(AccountDatabaseConstants.DELETE_ACCOUNT)) {
             preparedStatement.setInt(1, id);
-            executeDelete = preparedStatement.executeUpdate();
+            int executeDelete = preparedStatement.executeUpdate();
             LOGGER.info("delete(...) = " + executeDelete);
 
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Database error", e);
             throw new DeleteAccountException("There is no account with this id number to delete", e);
         }
-
-        return executeDelete;
     }
 
     public List<Account> list() throws AccountException {

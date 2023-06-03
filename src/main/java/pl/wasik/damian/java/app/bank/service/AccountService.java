@@ -2,12 +2,12 @@ package pl.wasik.damian.java.app.bank.service;
 
 import pl.wasik.damian.java.app.bank.dao.AccountDao;
 import pl.wasik.damian.java.app.bank.exception.AccountException;
-import pl.wasik.damian.java.app.bank.exception.account.DeleteAccountException;
 import pl.wasik.damian.java.app.bank.exception.account.ReadAccountException;
 import pl.wasik.damian.java.app.bank.exception.account.UpdateAccountException;
 import pl.wasik.damian.java.app.bank.model.Account;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 public class AccountService {
@@ -25,40 +25,26 @@ public class AccountService {
         return createdAccount;
     }
 
-    public Account read(int id) throws AccountException {
+    public Optional<Account> read(int id) throws AccountException {
         LOGGER.info("read(" + id + ")");
-        // Optional<Account> readAccountOptional = accountDao.read(id);
-        // readAccountOptional.orElseThrow(() -> new ReadAccountException("There is no account with this id number"));
-
-        Account readAccount = accountDao.read(id);
-        if (readAccount != null) {
-            LOGGER.info("read(...)= " + readAccount);
-            return readAccount;
-        } else {
-            throw new ReadAccountException("There is no account with this id number");
-        }
+        Optional<Account> readAccountOptional = accountDao.read(id);
+        readAccountOptional.orElseThrow(() -> new ReadAccountException("There is no account with this id number"));
+        LOGGER.info("read(...)= " + readAccountOptional);
+        return readAccountOptional;
     }
 
-    public Account update(Account account) throws AccountException {
+    public Optional<Account> update(Account account) throws AccountException {
         LOGGER.info("update(" + account + ")");
-        Account updatedAccount = accountDao.update(account);
-        if (updatedAccount != null) {
-            LOGGER.info("update(...)= " + updatedAccount);
-            return updatedAccount;
-        } else {
-            throw new UpdateAccountException("No account to change");
-        }
+        Optional<Account> updatedAccountOptional = accountDao.update(account);
+        updatedAccountOptional.orElseThrow(() -> new UpdateAccountException("No account to change"));
+        LOGGER.info("update(...)= " + updatedAccountOptional);
+        return updatedAccountOptional;
     }
 
-    public int delete(int id) throws AccountException {
+    public void delete(int id) throws AccountException {
         LOGGER.info("delete(" + id + ")");
-        int executeDelete = accountDao.delete(id);
-        LOGGER.info("delete(...)= " + executeDelete);
-        if (executeDelete == 0) {
-            throw new DeleteAccountException("There is no account with this id number to delete");
-        } else {
-            return executeDelete;
-        }
+        accountDao.delete(id);
+        LOGGER.info("delete(...)");
     }
 
     public List<Account> list() throws AccountException {
