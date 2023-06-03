@@ -8,12 +8,10 @@ import java.util.logging.Logger;
 
 public class Client {
     private static final Logger LOGGER = Logger.getLogger(Client.class.getName());
+
     private int id;
     private String firstName;
     private String lastName;
-    //    private String street;
-//    private String houseNumber;
-//    private String postalCode;
     private Address address; // ADDRESS_ID -> Foreign Key
     private List<Account> accounts = new ArrayList<>();
 
@@ -36,7 +34,6 @@ public class Client {
 
     public Account openAccount() {
         LOGGER.info("openAccount(" + firstName + ", " + lastName + ")");
-//        String number = UUID.randomUUID().toString();
         String number = UniqueIdentifierGenerator.generateAccountNumber();
         Account account = new Account(number, 0.0);
         accounts.add(account);
