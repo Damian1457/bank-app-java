@@ -103,7 +103,7 @@ public class AccountDao {
             LOGGER.log(Level.SEVERE, "Database error", e);
             throw new UpdateAccountException("No account to change", e);
         }
-
+        
         return Optional.empty();
     }
 
