@@ -30,7 +30,7 @@ public class AccountIntegrationTest {
     }
 
     @Test
-    void givenAccountWithBalanceZero_whenDeposit0AndWithdraw10_thenShouldThrowException() throws AccountException {
+    void givenAccountWithBalanceZero_whenDeposit0AndWithdraw10_thenShouldThrowException() {
         //Given
         Account account = new Account(ACCOUNT_NUMBER, ACCOUNT_BALANCE_0);
 
@@ -42,8 +42,7 @@ public class AccountIntegrationTest {
     }
 
     @Test
-    void givenAccountWithBalanceZero_whenDeposit170AndWithdraw170_thenAccountBalanceEquals0() throws
-            AccountException {
+    void givenAccountWithBalanceZero_whenDeposit170AndWithdraw170_thenAccountBalanceEquals0() throws AccountException {
         //Given
         Account account = new Account(ACCOUNT_NUMBER, ACCOUNT_BALANCE_0);
 

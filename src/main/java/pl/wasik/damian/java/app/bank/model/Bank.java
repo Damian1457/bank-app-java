@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 public class Bank {
     private static final Logger LOGGER = Logger.getLogger(Bank.class.getName());
-
     private String name;
     private Address address;
     private List<Client> clients = new ArrayList<>();

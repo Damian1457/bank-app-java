@@ -38,7 +38,6 @@ public class Client {
         Account account = new Account(number, 0.0);
         accounts.add(account);
         LOGGER.info("openAccount() = " + account);
-
         return account;
     }
 
