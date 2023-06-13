@@ -25,20 +25,20 @@ public class AccountService {
         return createdAccount;
     }
 
-    public Optional<Account> read(int id) throws AccountException {
+    public Account read(int id) throws AccountException {
         LOGGER.info("read(" + id + ")");
         Optional<Account> readAccountOptional = accountDao.read(id);
-        readAccountOptional.orElseThrow(() -> new ReadAccountException("There is no account with this id number"));
-        LOGGER.info("read(...)= " + readAccountOptional);
-        return readAccountOptional;
+        Account account = readAccountOptional.orElseThrow(() -> new ReadAccountException("There is no account with this id number"));
+        LOGGER.info("read(...)= " + account);
+        return account;
     }
 
-    public Optional<Account> update(Account account) throws AccountException {
+    public Account update(Account account) throws AccountException {
         LOGGER.info("update(" + account + ")");
         Optional<Account> updatedAccountOptional = accountDao.update(account);
-        updatedAccountOptional.orElseThrow(() -> new UpdateAccountException("No account to change"));
-        LOGGER.info("update(...)= " + updatedAccountOptional);
-        return updatedAccountOptional;
+        Account updatedAccount = updatedAccountOptional.orElseThrow(() -> new UpdateAccountException("No account to change"));
+        LOGGER.info("update(...)= " + updatedAccount);
+        return updatedAccount;
     }
 
     public void delete(int id) throws AccountException {

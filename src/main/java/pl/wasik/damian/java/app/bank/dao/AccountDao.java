@@ -27,7 +27,6 @@ public class AccountDao {
 
     public void clearDatabaseRecords() {
         LOGGER.info("clearDatabaseRecords()");
-
         try {
             Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa");
             Statement statement = connection.createStatement();
@@ -41,7 +40,6 @@ public class AccountDao {
 
     public Account create(Account account) throws AccountException {
         LOGGER.info("create(" + account + ")");
-
         try (Connection connection = ConnectionManager.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(AccountDatabaseConstants.CREATE_ACCOUNT)) {
             preparedStatement.setInt(1, UniqueIdGenerator.getNextId(connection, "ACCOUNTS_SEQ"));
@@ -54,7 +52,6 @@ public class AccountDao {
             LOGGER.log(Level.SEVERE, "Database error", e);
             throw new CreateAccountException("The account cannot be created", e);
         }
-
         return account;
     }
 
@@ -103,7 +100,7 @@ public class AccountDao {
             LOGGER.log(Level.SEVERE, "Database error", e);
             throw new UpdateAccountException("No account to change", e);
         }
-        
+
         return Optional.empty();
     }
 

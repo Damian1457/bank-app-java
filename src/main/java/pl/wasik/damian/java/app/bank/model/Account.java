@@ -29,7 +29,6 @@ public class Account {
             throw new AccountException("Insufficient funds in the account.");
         }
         LOGGER.info("balance() = " + this.balance);
-
         return this.balance;
     }
 
@@ -37,7 +36,6 @@ public class Account {
         LOGGER.info("deposit(" + amount + ")");
         balance += amount;
         LOGGER.info("balance() = " + this.balance);
-
         return this.balance;
     }
 

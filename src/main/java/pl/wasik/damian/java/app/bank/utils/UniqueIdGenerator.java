@@ -13,19 +13,21 @@ public class UniqueIdGenerator {
     public static Integer getNextId(Connection connection, String sequenceName) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT NEXTVAL('" + sequenceName + "')");
-            resultSet.next();
-            return resultSet.getInt(1);
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Database error", e);
         }
-        return null;
+        return 0;
     }
 
     public void clearTable(Connection connection, String tableName, String sequenceName) throws SQLException {
+        LOGGER.info("clearTable(" + connection + ", " + tableName + ", " + sequenceName + ")");
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate("DELETE FROM " + tableName);
             statement.executeUpdate("ALTER SEQUENCE " + sequenceName + " RESTART WITH 1");
-            LOGGER.info(" table cleared");
         }
+        LOGGER.info("clearTable(...)");
     }
 }
