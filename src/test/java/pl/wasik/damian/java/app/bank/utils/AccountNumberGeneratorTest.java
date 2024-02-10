@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-class UniqueIdentifierGeneratorTest {
+class AccountNumberGeneratorTest {
 
     @Test
     void generateAccountNumber_andAddToList() {
@@ -16,7 +16,7 @@ class UniqueIdentifierGeneratorTest {
 
         //When
         for (int i = 0; i < numberOfTests; i++) {
-            String generatedNumber = UniqueIdentifierGenerator.generateAccountNumber();
+            String generatedNumber = AccountNumberGenerator.generate();
 
             //Then
             Assertions.assertTrue(generatedNumbers.add(generatedNumber), " number is false");
@@ -27,8 +27,8 @@ class UniqueIdentifierGeneratorTest {
     void generateNumber() {
         //Given
         //When
-        String firstNumber = UniqueIdentifierGenerator.generateAccountNumber();
-        String secondNumber = UniqueIdentifierGenerator.generateAccountNumber();
+        String firstNumber = AccountNumberGenerator.generate();
+        String secondNumber = AccountNumberGenerator.generate();
 
         //Then
         Assertions.assertNotEquals(firstNumber, secondNumber, " firstNumber is equals secondNumber");
@@ -38,7 +38,7 @@ class UniqueIdentifierGeneratorTest {
     void generateAccountNumber() {
         //Given
         //When
-        String generatedNumber = UniqueIdentifierGenerator.generateAccountNumber();
+        String generatedNumber = AccountNumberGenerator.generate();
 
         //Then
         Assertions.assertNotNull(generatedNumber, "generatedNumber is null");

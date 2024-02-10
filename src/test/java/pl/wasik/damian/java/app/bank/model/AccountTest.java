@@ -3,7 +3,7 @@ package pl.wasik.damian.java.app.bank.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pl.wasik.damian.java.app.bank.exception.AccountException;
-import pl.wasik.damian.java.app.bank.utils.UniqueIdentifierGenerator;
+import pl.wasik.damian.java.app.bank.utils.AccountNumberGenerator;
 
 class AccountTest {
     public static final int ACCOUNT_BALANCE_0 = 0;
@@ -48,7 +48,7 @@ class AccountTest {
     @Test
     void givenAccountWithZeroBalance_whenDepositFunds_thenBalanceShouldIncrease() {
         //Given
-        Account account = new Account(UniqueIdentifierGenerator.generateAccountNumber(), 0.0);
+        Account account = new Account(AccountNumberGenerator.generate(), 0.0);
 
         //When
         double deposit = account.deposit(100);
