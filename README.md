@@ -20,13 +20,7 @@ The application's code is tested using JUnit, and it uses Maven and Git for proj
 
 ## Configuration
 
-Before running the application, you need to configure the H2 database by adding the following parameters to the `application.properties` file:
-
-```properties
-db.url=jdbc:h2:~/test
-db.username=sa
-db.password=sa
-```
+Before running the application, you need to configure the H2 database.
 
 ## Running / Installation
 
