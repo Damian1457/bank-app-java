@@ -1,6 +1,6 @@
 package pl.wasik.damian.java.app.bank.model;
 
-import pl.wasik.damian.java.app.bank.utils.UniqueIdentifierGenerator;
+import pl.wasik.damian.java.app.bank.utils.AccountNumberGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ public class Client {
 
     public Account openAccount() {
         LOGGER.info("openAccount(" + firstName + ", " + lastName + ")");
-        String number = UniqueIdentifierGenerator.generateAccountNumber();
+        String number = AccountNumberGenerator.generate();
         Account account = new Account(number, 0.0);
         accounts.add(account);
         LOGGER.info("openAccount() = " + account);

@@ -5,6 +5,7 @@ import pl.wasik.damian.java.app.bank.exception.AccountException;
 import pl.wasik.damian.java.app.bank.exception.account.ReadAccountException;
 import pl.wasik.damian.java.app.bank.exception.account.UpdateAccountException;
 import pl.wasik.damian.java.app.bank.model.Account;
+import pl.wasik.damian.java.app.bank.utils.AccountNumberGenerator;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,8 +19,9 @@ public class AccountService {
         this.accountDao = accountDao;
     }
 
-    public Account create(Account account) throws AccountException {
-        LOGGER.info("create(" + account + ")");
+    public Account create() throws AccountException {
+        LOGGER.info("create()");
+        Account account = new Account(AccountNumberGenerator.generate(), 0.0);
         Account createdAccount = accountDao.create(account);
         LOGGER.info("create(...)= " + createdAccount);
         return createdAccount;

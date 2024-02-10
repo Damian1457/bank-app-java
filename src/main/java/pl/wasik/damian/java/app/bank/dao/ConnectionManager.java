@@ -34,20 +34,6 @@ public class ConnectionManager {
     }
 
     public Connection getConnection() {
-
-//        try {
-//            if (this.connection != null && this.connection.isClosed()) {
-//                try (Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa")) {
-//                    this.connection = connection;
-//                } catch (SQLException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                return this.connection;
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
         LOGGER.info("getConnection()");
         try {
             if (this.connection != null && this.connection.isClosed()) {
